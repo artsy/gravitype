@@ -1,11 +1,15 @@
 require 'test_helper'
 
-class GravitypeTest < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::Gravitype::VERSION
-  end
+class TestDoc
+  include Mongoid::Document
 
-  def test_it_does_something_useful
-    assert false
+  field :string, type: String
+end
+
+class GravitypeTest < Minitest::Spec
+  it 'works' do
+    doc = TestDoc.new(string: 'hello')
+    doc.save!
+    assert doc
   end
 end

@@ -33,6 +33,7 @@ module Gravitype
     model.all.each do |doc|
       fields_with_getters.each do |field, getter|
         value = doc.send(getter)
+        raise TypeError, "Hash support is not implemented yet" if value.is_a?(Hash)
         if list = List.for_list(value)
           classes = value.inject(list) { |list, element| list << element.class }
           fields_with_classes[field] << classes

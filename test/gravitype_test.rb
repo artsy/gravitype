@@ -6,11 +6,15 @@ class TestDoc
   Mongoid::Fields::TYPE_MAPPINGS.each do |name, type|
     field "mongoid_#{name}", type: type
   end
+
+  def ruby_method?
+    'string'
+  end
 end
 
 # mongoid_hash
 
-describe 'Data inflection of Mongoid backed fields' do
+describe 'Data introspection of Mongoid backed fields' do
   it 'returns all types that exist for a `string` field' do
     result = introspect_field(:mongoid_string, [nil, 'foo', 'bar'])
     result.must_equal Set.new([NilClass, String])
@@ -86,6 +90,11 @@ describe 'Data inflection of Mongoid backed fields' do
     result.must_equal Set.new([Set.new([String, Symbol, Fixnum])])
   end
 
+  # it 'returns all types that exist for a `hash` field' do
+  #   result = introspect_field(:mongoid_hash, [nil, {}, { 21 => 'bar', 'foo' => 42 }])
+  #   result.must_equal Set.new([nil, { Set.new([String, Fixnum]) => Set.new([String, Fixnum]) }])
+  # end
+
   private
 
   def introspect_field(field, values)
@@ -93,3 +102,12 @@ describe 'Data inflection of Mongoid backed fields' do
     Gravitype.introspect_data(TestDoc, field => field)[field]
   end
 end
+
+describe 'Data introspection of Ruby backed fields' do
+  it 'uses the provided method alias to get the value from the document' do
+    TestDoc.create!
+    result = Gravitype.introspect_data(TestDoc, :ruby_method => :ruby_method?)
+    result[:ruby_method].must_equal Set.new([String])
+  end
+end
+

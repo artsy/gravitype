@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'gravitype'
 
 require 'mongoid'
+require 'mongoid-cached-json'
 
 Mongoid.configure do |config|
   config.connect_to("localhost")

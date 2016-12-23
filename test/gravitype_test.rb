@@ -2,6 +2,7 @@ require 'test_helper'
 
 class TestDoc
   include Mongoid::Document
+  include Mongoid::CachedJson
 
   Mongoid::Fields::TYPE_MAPPINGS.each do |name, type|
     field "mongoid_#{name}", type: type
@@ -10,6 +11,10 @@ class TestDoc
   def ruby_method?
     'string'
   end
+
+  json_fields \
+    mongoid_string: {},
+    ruby_method: { definition: :ruby_method? }
 end
 
 # mongoid_hash
@@ -111,3 +116,11 @@ describe 'Data introspection of Ruby backed fields' do
   end
 end
 
+describe Gravitype do
+  it 'returns a list of exposed JSON fields and their model getters' do
+    Gravitype.exposed_fields_and_getters(TestDoc).must_equal({
+      mongoid_string: :mongoid_string,
+      ruby_method: :ruby_method?,
+    })
+  end
+end

@@ -51,4 +51,11 @@ module Gravitype
     end
     fields_with_classes
   end
+
+  def self.exposed_fields_and_getters(model)
+    model.cached_json_field_defs[:all].inject({}) do |fields, (field, options)|
+      fields[field] = options[:definition] || field
+      fields
+    end
+  end
 end

@@ -1,5 +1,4 @@
 require "gravitype/type"
-require "active_support/core_ext/object/duplicable"
 
 module Gravitype
   class Field

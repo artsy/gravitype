@@ -1,5 +1,6 @@
 require "gravitype/introspection/data"
 require "gravitype/introspection/schema"
+require "gravitype/type"
 
 require "json"
 require "mongoid"

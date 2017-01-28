@@ -31,6 +31,9 @@ module Gravitype
           progressbar.increment
         end
 
+        # Otherwise this data cannot be marshalled
+        fields_with_classes.default_proc = nil
+
         # Merge all type sets for each field to a single set.
         fields_with_classes.each do |field, classes|
           lists = classes.select { |x| x.is_a?(List) }

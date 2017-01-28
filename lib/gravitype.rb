@@ -1,6 +1,10 @@
 require "gravitype/introspection/data"
+require "gravitype/introspection/query"
 require "gravitype/introspection/schema"
+
 require "json"
+require "mongoid"
+require "mongoid-cached-json"
 
 module Gravitype
   # Based on: Hash[*Mongoid::Fields::TYPE_MAPPINGS.to_a.flatten.reverse]

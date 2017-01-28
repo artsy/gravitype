@@ -6,9 +6,13 @@ module Gravitype
     class List < Type
       attr_reader :storage
 
-      def initialize(object = nil)
+      def initialize(*objects)
         @storage = new_storage
-        load_from_object(object) if object
+        load_from_objects(objects)
+      end
+
+      def values
+        @storage[:values]
       end
 
       def eql?(other)
@@ -25,10 +29,22 @@ module Gravitype
         { values: Compound.new }
       end
 
-      def load_from_object(object)
-        object.each do |value|
-          @storage[:values].types << Type.of(value)
+      def load_from_objects(objects)
+        objects.each do |object|
+          if object.is_a?(type)
+            load_from_list_object(object)
+          else
+            load_from_object(object)
+          end
         end
+      end
+
+      def load_from_list_object(list)
+        list.each { |object| load_from_object(object) }
+      end
+
+      def load_from_object(object, storage_key = :values)
+        @storage[storage_key].types << Type.of(object)
       end
     end
 
@@ -49,16 +65,20 @@ module Gravitype
         ::Hash
       end
 
+      def keys
+        @storage[:keys]
+      end
+
       private
 
       def new_storage
         super.merge(keys: Compound.new)
       end
 
-      def load_from_object(hash)
+      def load_from_list_object(hash)
         hash.each do |key, value|
-          @storage[:keys].types << Type.of(key)
-          @storage[:values].types << Type.of(value)
+          load_from_object(key, :keys)
+          load_from_object(value, :values)
         end
       end
     end

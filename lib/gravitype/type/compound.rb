@@ -5,8 +5,8 @@ module Gravitype
     class Compound < Type
       attr_reader :types
 
-      def initialize(*types)
-        @types = ::Set.new(types.flatten)
+      def initialize(types = [])
+        @types = ::Set.new(types.map { |type| Type.of(type) })
       end
 
       def ==(other)

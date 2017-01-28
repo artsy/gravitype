@@ -2,14 +2,16 @@ module Gravitype
   class Type
     def self.of(object)
       case object
-      when Class
-        raise ArgumentError, "Do not use Type.of with classes"
+      when Type
+        object
       when ::Hash
         Hash.new(object)
       when ::Array
         Array.new(object)
       when ::Set
         Set.new(object)
+      when Class
+        new(object)
       else
         new(object.class)
       end
@@ -26,8 +28,12 @@ module Gravitype
       ::Set.new([self])
     end
 
+    def ==(other)
+      other.is_a?(Type) && type == other.type
+    end
+
     def eql?(other)
-      type == other.type
+      self == other
     end
 
     def hash
@@ -36,7 +42,7 @@ module Gravitype
 
     def +(other)
       raise TypeError, "Can only sum Type and subclasses of Type" unless other.is_a?(Type)
-      Compound.new(self, other)
+      Compound.new([self, other])
     end
 
     def nullable?

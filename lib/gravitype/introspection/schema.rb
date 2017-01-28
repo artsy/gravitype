@@ -1,4 +1,4 @@
-require "gravitype/Introspection"
+require "gravitype/introspection"
 
 module Gravitype
   class Introspection

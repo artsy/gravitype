@@ -1,5 +1,5 @@
 require "gravitype/type"
-require "gravitype/type/compound"
+require "gravitype/type/union"
 
 module Gravitype
   class Type
@@ -30,7 +30,7 @@ module Gravitype
       private
 
       def new_storage
-        { values: Compound.new }
+        { values: Union.new }
       end
 
       def load_from_objects(objects)
@@ -80,7 +80,7 @@ module Gravitype
       private
 
       def new_storage
-        super.merge(keys: Compound.new)
+        super.merge(keys: Union.new)
       end
 
       def load_from_list_object(hash)

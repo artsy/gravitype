@@ -23,7 +23,7 @@ module Gravitype
       @type = type
     end
 
-    # This makes Type and Type::Compound duck-typable
+    # This makes Type and Type::Union duck-typable
     def types
       ::Set.new([self])
     end
@@ -40,9 +40,9 @@ module Gravitype
       type.hash
     end
 
-    def +(other)
-      raise TypeError, "Can only sum Type and subclasses of Type" unless other.is_a?(Type)
-      Compound.new([self, other])
+    def |(other)
+      raise TypeError, "Can only make a union of Type and subclasses of Type" unless other.is_a?(Type)
+      Union.new([self, other])
     end
 
     def nullable?
@@ -51,5 +51,5 @@ module Gravitype
   end
 end
 
-require "gravitype/type/compound"
+require "gravitype/type/union"
 require "gravitype/type/list"

@@ -2,7 +2,7 @@ require "gravitype/type"
 
 module Gravitype
   class Type
-    class Compound < Type
+    class Union < Type
       attr_reader :types
 
       def initialize(types = [])
@@ -10,16 +10,16 @@ module Gravitype
       end
 
       def ==(other)
-        other.is_a?(Compound) && @types == other.types
+        other.is_a?(Union) && @types == other.types
       end
 
       def hash
         @types.hash
       end
 
-      def +(other)
-        raise TypeError, "Can only sum Type and subclasses of Type" unless other.is_a?(Type)
-        Compound.new((types + other.types).to_a)
+      def |(other)
+        raise TypeError, "Can only make a union of Type and subclasses of Type" unless other.is_a?(Type)
+        Union.new((types + other.types).to_a)
       end
     end
   end

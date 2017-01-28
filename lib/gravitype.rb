@@ -1,5 +1,5 @@
-require "gravitype/introspection/data"
-require "gravitype/introspection/schema"
+require "gravitype/field"
+require "gravitype/introspection"
 require "gravitype/type"
 
 require "json"

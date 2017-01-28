@@ -76,3 +76,6 @@ module Gravitype
     end
   end
 end
+
+require "gravitype/introspection/data"
+require "gravitype/introspection/schema"

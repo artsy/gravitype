@@ -32,16 +32,6 @@ module Gravitype
     Fixnum => :integer,
   }
 
-  def self.introspect(*models)
-    if models.empty?
-      models = Mongoid.models.select { |model| model.try(:cached_json_field_defs) }
-    end
-    models.inject({}) do |hash, model|
-      hash[model.name] = Model.new(model).introspect
-      hash
-    end
-  end
-
   def self.pretty_json(introspection_result)
     transformed = introspection_result.inject({}) do |models, (model, introspection_types)|
       models[model] = introspection_types.inject({}) do |introspections, (introspection_type, field_sets)|
@@ -76,25 +66,5 @@ module Gravitype
 
   def self.classes_to_types(classes)
     classes.to_a.map { |klass| class_to_type(klass) }.uniq
-  end
-
-  class Model
-    def initialize(model)
-      @model = model
-    end
-
-    def introspect
-      { data: data, schema: schema }
-    end
-
-    private
-
-    def data
-      @data ||= Introspection::Data.new(@model).introspect
-    end
-
-    def schema
-      @schema ||= Introspection::Schema.new(@model).introspect
-    end
   end
 end

@@ -8,3 +8,31 @@ describe Gravitype::Introspection do
   #   })
   # end
 end
+
+class Gravitype::Introspection
+  describe Model do
+    before do
+      TestDoc.create(mongoid_string: 'foo', mongoid_hash: { 'foo' => 42 })
+      TestDoc.create(mongoid_string: 'foo', mongoid_array: ['foo'])
+      TestDoc.create(mongoid_string: 'foo', mongoid_set: Set.new(['foo']))
+      @model = Model.new(TestDoc)
+    end
+
+    it "merges the data and schema results" do
+      result = @model.merge
+      result[:mongoid_hash].must_equal(Set.new([NilClass, { Set.new([String]) => Set.new([Fixnum]) }]))
+      result[:mongoid_array].must_equal(Set.new([NilClass, [String]]))
+      result[:mongoid_set].must_equal(Set.new([Set.new([String])]))
+      result[:mongoid_string].must_equal(Set.new([String]))
+      result[:mongoid_time].must_equal(Set.new([NilClass, Time]))
+    end
+
+    it "introspects both data and schema" do
+      @model.introspect.must_equal(
+        data: Data.new(TestDoc).introspect,
+        schema: Schema.new(TestDoc).introspect,
+        merged: @model.merge,
+      )
+    end
+  end
+end

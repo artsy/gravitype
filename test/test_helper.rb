@@ -36,7 +36,11 @@ class TestDoc
     "string"
   end
 
-  json_fields \
-    mongoid_string: {},
-    ruby_method: { definition: :ruby_method? }
+  fields = Mongoid::Fields::TYPE_MAPPINGS.keys.inject({}) do |hash, name|
+    hash["mongoid_#{name}".to_sym] = {}
+    hash
+  end
+  fields[:ruby_method] = { definition: :ruby_method? }
+
+  json_fields(fields)
 end

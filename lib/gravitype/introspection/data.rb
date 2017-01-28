@@ -5,6 +5,7 @@ require "ruby-progressbar"
 
 module Gravitype
   class Introspection
+    # Collects type information from the actual data in the DB.
     class Data < Introspection
       def introspect(fields_with_getters = exposed_fields_and_getters)
         progressbar = ProgressBar.create(

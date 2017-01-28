@@ -36,6 +36,14 @@ module Gravitype
         normalized_type += Type::Set.new(sets.map(&:values).reduce(:+).types.to_a)
       end
 
+      hashes = @type.types.select { |type| type.type == Hash }
+      unless hashes.empty?
+        hash = Type::Hash.new
+        hash.keys += hashes.map(&:keys).reduce(:+)
+        hash.values += hashes.map(&:values).reduce(:+)
+        normalized_type += hash
+      end
+
       # If there’s only 1 type, unwrap it from the compound type.
       normalized_type = normalized_type.types.first if normalized_type.types.size == 1
 

@@ -25,18 +25,19 @@ module Gravitype
 
     describe "normalize" do
       it "prefers more detailed arrays" do
-        types = Type::Compound.new([Type::Array.new(String), Type::Array.new])
+        types = Type::Array.new(String) + Type::Array.new
         Field.new(:foo, types).normalize.type.must_equal(Type::Array.new(String))
       end
 
       it "prefers more detailed sets" do
-        types = Type::Compound.new([Type::Set.new(String), Type::Set.new])
+        types = Type::Set.new(String) + Type::Set.new
         Field.new(:foo, types).normalize.type.must_equal(Type::Set.new(String))
       end
 
-      # it "prefers more detailed hashes" do
-      #   Field.new(:foo, [Hash, { Set.new([String]) => Set.new([String]) }]).normalize.classes.must_equal(Set.new({ Set.new([String]) => Set.new([String]) }]))
-      # end
+      it "prefers more detailed hashes" do
+        types = Type::Hash.new(Symbol => Fixnum) + Type::Hash.new
+        Field.new(:foo, types).normalize.type.must_equal Type::Hash.new(Symbol => Fixnum)
+      end
     end
   end
 end

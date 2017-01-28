@@ -15,6 +15,10 @@ module Gravitype
         @storage[:values]
       end
 
+      def values=(values)
+        @storage[:values] = values
+      end
+
       def eql?(other)
         super && @storage == other.storage
       end
@@ -67,6 +71,10 @@ module Gravitype
 
       def keys
         @storage[:keys]
+      end
+
+      def keys=(keys)
+        @storage[:keys] = keys
       end
 
       private

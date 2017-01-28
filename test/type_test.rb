@@ -7,36 +7,50 @@ module Gravitype
       Type.of('foo').type.must_equal String
     end
 
-    it "wraps a hash" do
-      type = Type::Hash.new
-      type.type.must_equal Hash
-      type.storage[:keys].must_equal Set.new
-      type.storage[:values].must_equal Set.new
-
-      type = Type.of(:foo => "bar", "baz" => 42, :another => 21)
-      type.type.must_equal Hash
-      type.storage[:keys].must_equal Set.new([Type.new(Symbol), Type.new(String)])
-      type.storage[:values].must_equal Set.new([Type.new(String), Type.new(Fixnum)])
+    it "returns a compound type when summing" do
+      type = Type.new(String) + Type.new(Symbol) + Type.new(String)
+      type.must_equal Type::Compound.new(Type.new(String), Type.new(Symbol))
     end
 
-    it "wraps an array" do
-      type = Type::Array.new
-      type.type.must_equal Array
-      type.storage[:values].must_equal Set.new
-
-      type = Type.of([:foo, "bar", 42, :another, 21])
-      type.type.must_equal Array
-      type.storage[:values].must_equal Set.new([Type.new(String), Type.new(Symbol), Type.new(Fixnum)])
+    it "returns if it is nullable" do
+      Type.new(NilClass).nullable?.must_equal true
+      Type.new(String).nullable?.must_equal false
+      Type::Compound.new(Type.new(String)).nullable?.must_equal false
+      Type::Compound.new(Type.new(NilClass), Type.new(String)).nullable?.must_equal true
     end
 
-    it "wraps a set" do
-      type = Type::Set.new
-      type.type.must_equal Set
-      type.storage[:values].must_equal Set.new
+    describe "list" do
+      it "wraps a hash" do
+        type = Type::Hash.new
+        type.type.must_equal Hash
+        type.storage[:keys].must_equal Type::Compound.new
+        type.storage[:values].must_equal Type::Compound.new
 
-      type = Type.of(Set.new([:foo, "bar", 42, :another, 21]))
-      type.type.must_equal Set
-      type.storage[:values].must_equal Set.new([Type.new(String), Type.new(Symbol), Type.new(Fixnum)])
+        type = Type.of(:foo => "bar", "baz" => 42, :another => 21)
+        type.type.must_equal Hash
+        type.storage[:keys].must_equal Type::Compound.new(Type.new(Symbol), Type.new(String))
+        type.storage[:values].must_equal Type::Compound.new(Type.new(String), Type.new(Fixnum))
+      end
+
+      it "wraps an array" do
+        type = Type::Array.new
+        type.type.must_equal Array
+        type.storage[:values].must_equal Type::Compound.new
+
+        type = Type.of([:foo, "bar", 42, :another, 21])
+        type.type.must_equal Array
+        type.storage[:values].must_equal Type::Compound.new(Type.new(String), Type.new(Symbol), Type.new(Fixnum))
+      end
+
+      it "wraps a set" do
+        type = Type::Set.new
+        type.type.must_equal Set
+        type.storage[:values].must_equal Type::Compound.new
+
+        type = Type.of(Set.new([:foo, "bar", 42, :another, 21]))
+        type.type.must_equal Set
+        type.storage[:values].must_equal Type::Compound.new(Type.new(String), Type.new(Symbol), Type.new(Fixnum))
+      end
     end
   end
 end

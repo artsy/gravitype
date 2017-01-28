@@ -21,6 +21,11 @@ module Gravitype
       @type = type
     end
 
+    # This makes Type and Type::Compound duck-typable
+    def types
+      ::Set.new([self])
+    end
+
     def eql?(other)
       type == other.type
     end
@@ -29,64 +34,16 @@ module Gravitype
       type.hash
     end
 
-    class List < Type
-      attr_reader :storage
-
-      def initialize(object = nil)
-        @storage = new_storage
-        load_from_object(object) if object
-      end
-
-      def eql?(other)
-        super && @storage == other.storage
-      end
-
-      def hash
-        [super, @storage].hash
-      end
-
-      private
-
-      def new_storage
-        { values: ::Set.new }
-      end
-
-      def load_from_object(object)
-        object.each do |value|
-          @storage[:values] << Type.of(value)
-        end
-      end
+    def +(other)
+      raise TypeError, "Can only sum Type and subclasses of Type" unless other.is_a?(Type)
+      Compound.new(self, other)
     end
 
-    class Array < List
-      def type
-        ::Array
-      end
-    end
-
-    class Set < List
-      def type
-        ::Set
-      end
-    end
-
-    class Hash < List
-      def type
-        ::Hash
-      end
-
-      private
-
-      def new_storage
-        super.merge(keys: ::Set.new)
-      end
-
-      def load_from_object(hash)
-        hash.each do |key, value|
-          @storage[:keys] << Type.of(key)
-          @storage[:values] << Type.of(value)
-        end
-      end
+    def nullable?
+      types.any? { |type| type.type == NilClass }
     end
   end
 end
+
+require "gravitype/type/compound"
+require "gravitype/type/list"

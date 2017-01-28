@@ -3,33 +3,35 @@ require "test_helper"
 module Gravitype
   describe Field do
     it "initializes" do
-      field = Field.new(:foo, [String, String])
+      field = Field.new(:foo, Type.new(String))
       field.name.must_equal(:foo)
-      field.classes.must_equal(Set.new([String]))
+      field.type.type.must_equal(String)
     end
 
     it "merges" do
-      field = Field.new(:foo, [NilClass])
-      merged_field = field.merge(Field.new(:foo, [String]))
+      field = Field.new(:foo, Type.new(NilClass))
+      merged_field = field.merge(Field.new(:foo, Type.new(String)))
       merged_field.name.must_equal(:foo)
-      merged_field.classes.must_equal(Set.new([NilClass, String]))
-      field.classes.must_equal(Set.new([NilClass]))
+      merged_field.type.must_equal(Type::Compound.new([NilClass, String]))
+      field.type.must_equal(Type.new(NilClass))
     end
 
     it "merges in place" do
-      field = Field.new(:foo, [NilClass])
-      field.merge!(Field.new(:foo, [String]))
+      field = Field.new(:foo, Type.new(NilClass))
+      field.merge!(Field.new(:foo, Type.new(String)))
       field.name.must_equal(:foo)
-      field.classes.must_equal(Set.new([NilClass, String]))
+      field.type.must_equal(Type::Compound.new([NilClass, String]))
     end
 
     describe "normalize" do
       it "prefers more detailed arrays" do
-        Field.new(:foo, [[String], Array]).normalize.classes.must_equal(Set.new([[String]]))
+        types = Type::Compound.new([Type::Array.new(String), Type::Array.new])
+        Field.new(:foo, types).normalize.type.must_equal(Type::Array.new(String))
       end
 
       it "prefers more detailed sets" do
-        Field.new(:foo, [Set.new([String]), Set]).normalize.classes.must_equal(Set.new([Set.new([String])]))
+        types = Type::Compound.new([Type::Set.new(String), Type::Set.new])
+        Field.new(:foo, types).normalize.type.must_equal(Type::Set.new(String))
       end
 
       # it "prefers more detailed hashes" do

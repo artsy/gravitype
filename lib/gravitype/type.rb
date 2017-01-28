@@ -48,6 +48,10 @@ module Gravitype
     def nullable?
       types.any? { |type| type.type == NilClass }
     end
+
+    def normalize
+      self
+    end
   end
 end
 

@@ -64,5 +64,31 @@ module Gravitype
         type.storage[:values].must_equal Type::Union.new([String, Symbol, Fixnum])
       end
     end
+
+    describe "normalize" do
+      it "returns self if it's not a union" do
+        Type.new(String).normalize.must_equal(Type.new(String))
+      end
+
+      it "prefers more detailed arrays" do
+        type = Type::Array.new(String) | Type::Array.new
+        type.normalize.must_equal(Type::Array.new(String))
+      end
+
+      it "prefers more detailed sets" do
+        type = Type::Set.new(String) | Type::Set.new
+        type.normalize.must_equal(Type::Set.new(String))
+      end
+
+      it "prefers more detailed hashes" do
+        type = Type::Hash.new(Symbol => Fixnum) | Type::Hash.new
+        type.normalize.must_equal(Type::Hash.new(Symbol => Fixnum))
+      end
+
+      it "leaves non-collection types in tact" do
+        type = Type::Array.new(String) | Type.new(Symbol)
+        type.normalize.must_equal(type)
+      end
+    end
   end
 end

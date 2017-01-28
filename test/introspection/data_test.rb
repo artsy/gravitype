@@ -76,10 +76,10 @@ describe "Data introspection of Mongoid backed fields" do
     result.must_equal Set.new([Set.new([String, Symbol, Fixnum])])
   end
 
-  # it "returns all types that exist for a `hash` field" do
-  #   result = introspect_field(:mongoid_hash, [nil, {}, { 21 => "bar", "foo" => 42 }])
-  #   result.must_equal Set.new([nil, { Set.new([String, Fixnum]) => Set.new([String, Fixnum]) }])
-  # end
+  it "returns all types that exist for a `hash` field" do
+    result = introspect_field(:mongoid_hash, [nil, {}, { 21 => "bar", "foo" => 42 }])
+    result.must_equal Set.new([NilClass, { Set.new([String]) => Set.new([String, Fixnum]) }])
+  end
 
   private
 

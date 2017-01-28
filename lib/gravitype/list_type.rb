@@ -2,11 +2,12 @@ require "set"
 
 module Gravitype
   class List < ::Set
-    def self.for_list(list)
-      case list
-      when ::Array then Array.new
-      when ::Set then Set.new
-      end
+    def self.for_list(input)
+      list = case input
+             when ::Array then Array.new
+             when ::Set then Set.new
+             end
+      list.add_types(input) if list
     end
 
     def +(other)
@@ -17,6 +18,10 @@ module Gravitype
     def <<(klass)
       raise TypeError, "Unexpected nested list type" if [Array, Set, Hash].include?(klass)
       super
+    end
+
+    def add_types(input)
+      input.inject(self) { |list, element| list << element.class }
     end
 
     class Array < List

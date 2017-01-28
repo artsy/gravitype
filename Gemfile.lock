@@ -4,6 +4,7 @@ PATH
     gravitype (0.1.0)
       mongoid
       mongoid-cached-json
+      ruby-progressbar
 
 GEM
   remote: https://rubygems.org/

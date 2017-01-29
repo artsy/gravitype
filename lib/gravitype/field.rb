@@ -9,7 +9,7 @@ module Gravitype
     end
 
     def merge!(other)
-      raise ArgumentError, "Cannot merge anything but fields" unless other.is_a?(Field)
+      raise TypeError, "Cannot merge anything but fields" unless other.is_a?(Field)
       raise ArgumentError, "Different field name" unless @name == other.name
       @type |= other.type
       self

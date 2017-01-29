@@ -11,7 +11,7 @@ module Gravitype
     end
 
     def nonnull_to_sugar(as_nullable)
-      "#{Formatter::SPECIAL_TYPES[type] || type.name}#{as_nullable ? "?" : "!"}"
+      "#{Type::SPECIAL_TYPES[type] || type.name}#{as_nullable ? "?" : "!"}"
     end
   end
 
@@ -43,13 +43,6 @@ module Gravitype
   end
 
   module Formatter
-    SPECIAL_TYPES = Type::Sugar::SCALAR_TYPES.inject({}) do |hash, (name, klass)|
-      if klass.name.include?("::")
-        hash[klass] = name
-      end
-      hash
-    end.freeze
-
     def self.format(type)
       type.to_sugar
     end

@@ -27,6 +27,10 @@ module Gravitype
         values.empty?
       end
 
+      def ==(other)
+        other.is_a?(self.class) && values == other.values
+      end
+
       def eql?(other)
         super && @storage == other.storage
       end
@@ -38,6 +42,7 @@ module Gravitype
       def inspect
         "#<Type:#{type} [#{values.inspect}]>"
       end
+
 
       private
 
@@ -95,6 +100,10 @@ module Gravitype
 
       def inspect
         "#<Type:#{type} { [#{keys.inspect}] => [#{values.inspect}] }>"
+      end
+
+      def ==(other)
+        super && keys == other.keys
       end
 
       private

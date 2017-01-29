@@ -130,7 +130,7 @@ module Gravitype
       end
 
       it "makes scalar types available" do
-        Type::Sugar::SCALAR_TYPES.each do |name, klass|
+        Type::SCALAR_TYPES.each do |name, klass|
           send("#{name}!").must_equal Type.new(klass)
           send("#{name}?").must_equal Type.new(klass) | null
         end

@@ -1,10 +1,6 @@
 require "test_helper"
 
 module Gravitype
-  Type::Sugar.define_scalar_type("TrueClass", TrueClass)
-  Type::Sugar.define_scalar_type("FalseClass", FalseClass)
-  Type::Sugar.define_scalar_type("Fixnum", Fixnum)
-
   describe "Data introspection of Mongoid backed fields" do
     include Type::Sugar
 

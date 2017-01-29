@@ -4,6 +4,8 @@ require "gravitype"
 require "mongoid"
 require "mongoid-cached-json"
 
+ENV["TESTING"] = "1"
+
 Mongoid.configure do |config|
   config.connect_to("localhost")
   config.logger.level = Logger::INFO
@@ -45,3 +47,7 @@ class TestDoc
 
   json_fields(fields)
 end
+
+Gravitype::Type::Sugar.define_scalar_type("TrueClass", TrueClass)
+Gravitype::Type::Sugar.define_scalar_type("FalseClass", FalseClass)
+Gravitype::Type::Sugar.define_scalar_type("Fixnum", Fixnum)

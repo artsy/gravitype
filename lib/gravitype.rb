@@ -1,6 +1,7 @@
 require "gravitype/field"
 require "gravitype/formatter"
 require "gravitype/introspection"
+require "gravitype/transformer/mongoid"
 require "gravitype/type"
 
 require "json"

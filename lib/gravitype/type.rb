@@ -1,5 +1,35 @@
+require "mongoid"
+
 module Gravitype
   class Type
+    SCALAR_TYPES = {
+      # Default wildcard: ‘any’
+      "Object" => Object,
+      # Mongoid specific
+      "Boolean" => ::Mongoid::Boolean,
+      # Mongo specific
+      "ObjectId" => BSON::ObjectId,
+      "Binary" => BSON::Binary,
+      # Others from Mongoid::Fields::TYPE_MAPPINGS
+      "Time" => Time,
+      "Symbol" => Symbol,
+      "String" => String,
+      "Regexp" => BSON::Regexp::Raw,
+      "Range" => Range,
+      "Integer" => Integer,
+      "Float" => Float,
+      "DateTime" => DateTime,
+      "Date" => Date,
+      "BigDecimal" => BigDecimal,
+    }.freeze
+
+    SPECIAL_TYPES = SCALAR_TYPES.inject({}) do |hash, (name, klass)|
+      if klass.name.include?("::")
+        hash[klass] = name
+      end
+      hash
+    end.freeze
+
     def self.of(object)
       case object
       when Type

@@ -7,10 +7,7 @@
             "request": "launch",
             "cwd": "${workspaceRoot}",
             "useBundler": true,
-            "program": "${workspaceRoot}/bin/minitest",
-            "env": {
-              "DISABLE_PROGRESS_BAR": "1"
-            }
+            "program": "${workspaceRoot}/bin/minitest"
         }
     ]
 }

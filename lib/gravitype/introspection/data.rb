@@ -28,8 +28,8 @@ module Gravitype
             else
               fields[name] = field
             end
-            progressbar.increment
           end
+          progressbar.increment
         end
         fields.map do |name, field|
           normalized = field.normalize

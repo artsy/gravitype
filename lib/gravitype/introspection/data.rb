@@ -31,10 +31,10 @@ module Gravitype
             progressbar.increment
           end
         end
-        fields.inject({}) do |hash, (name, field)|
-          hash[name] = field.normalize
+        fields.map do |name, field|
+          normalized = field.normalize
           progressbar.increment
-          hash
+          normalized
         end
       end
     end

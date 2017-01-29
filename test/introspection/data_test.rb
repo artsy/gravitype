@@ -93,7 +93,7 @@ module Gravitype
 
     def introspect_field(field, values)
       values.each { |value| TestDoc.create!(field => value) }
-      Gravitype::Introspection::Data.new(TestDoc).introspect(field => field)[field]
+      Gravitype::Introspection::Data.new(TestDoc).introspect(field => field).first
     end
   end
 
@@ -103,7 +103,7 @@ module Gravitype
     it "uses the provided method alias to get the value from the document" do
       TestDoc.create!
       result = Gravitype::Introspection::Data.new(TestDoc).introspect(:ruby_method => :ruby_method?)
-      result[:ruby_method].type.must_equal String!
+      result.first.type.must_equal String!
     end
   end
 end

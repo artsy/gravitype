@@ -22,11 +22,11 @@ module Gravitype
 
     it "merges the data and schema results" do
       result = @model.merge
-      result[:mongoid_hash].type.must_equal Hash?(String! => Fixnum!)
-      result[:mongoid_array].type.must_equal Array?(String!)
-      result[:mongoid_set].type.must_equal Set!(String!)
-      result[:mongoid_string].type.must_equal String!
-      result[:mongoid_time].type.must_equal Time?
+      field(result, :mongoid_hash).type.must_equal Hash?(String! => Fixnum!)
+      field(result, :mongoid_array).type.must_equal Array?(String!)
+      field(result, :mongoid_set).type.must_equal Set!(String!)
+      field(result, :mongoid_string).type.must_equal String!
+      field(result, :mongoid_time).type.must_equal Time?
     end
 
     it "introspects both data and schema" do
@@ -35,6 +35,12 @@ module Gravitype
         schema: Introspection::Schema.new(TestDoc).introspect,
         merged: @model.merge,
       )
+    end
+
+    private
+
+    def field(result, name)
+      result.find { |field| field.name == name }
     end
   end
 end

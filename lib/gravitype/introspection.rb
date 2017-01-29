@@ -37,13 +37,10 @@ module Gravitype
       end
 
       def merge
-        result = {}
-        merge_fields(data, result)
-        merge_fields(schema, result)
-        result.inject({}) do |hash, (name, field)|
-          hash[name] = field.normalize
-          hash
-        end
+        merged = {}
+        merge_fields(data, merged)
+        merge_fields(schema, merged)
+        merged.map { |_, field| field.normalize }
       end
 
       private
@@ -57,7 +54,8 @@ module Gravitype
       end
 
       def merge_fields(from, into)
-        from.each do |name, field|
+        from.each do |field|
+          name = field.name
           if into[name]
             into[name] = into[name].merge(field)
           else

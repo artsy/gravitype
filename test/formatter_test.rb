@@ -13,14 +13,17 @@ module Gravitype
     end
 
     it "formats an array" do
+      Formatter.format(Array!).must_equal "Array!"
       Formatter.format(Array!(Integer!, Float!)).must_equal "Array!(Integer!, Float!)"
     end
 
     it "formats a set" do
+      Formatter.format(Set!).must_equal "Set!"
       Formatter.format(Set!(Integer!, Float!)).must_equal "Set!(Integer!, Float!)"
     end
 
     it "formats a hash" do
+      Formatter.format(Hash!).must_equal "Hash!"
       Formatter.format(Hash!(String! => Symbol! | Integer!)).must_equal "Hash!(String! => Symbol! | Integer!)"
     end
 

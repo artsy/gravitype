@@ -16,6 +16,10 @@ module Gravitype
         copy.first if copy.size == 1
       end
 
+      def empty?
+        @types.empty?
+      end
+
       def ==(other)
         other.is_a?(Union) && @types == other.types
       end

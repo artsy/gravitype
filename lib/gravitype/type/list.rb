@@ -23,6 +23,10 @@ module Gravitype
         @storage[:values] = values
       end
 
+      def empty?
+        values.empty?
+      end
+
       def eql?(other)
         super && @storage == other.storage
       end

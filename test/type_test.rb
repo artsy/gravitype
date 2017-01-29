@@ -34,6 +34,11 @@ module Gravitype
         (Type.new(String) | Type.new(Symbol)).prominent_type.must_equal nil
         (Type.new(String) | Type.new(Symbol) | Type.new(NilClass)).prominent_type.must_equal nil
       end
+
+      it "returns whether or not it’s empty" do
+        Type::Union.new.empty?.must_equal true
+        Type::Union.new([Type.new(String)]).empty?.must_equal false
+      end
     end
 
     describe "list" do
@@ -42,39 +47,47 @@ module Gravitype
         type.type.must_equal Hash
         type.storage[:keys].must_equal Type::Union.new
         type.storage[:values].must_equal Type::Union.new
+        type.empty?.must_equal true
 
         type = Type.of(:foo => "bar", "baz" => 42, :another => 21)
         type.type.must_equal Hash
         type.storage[:keys].must_equal Type::Union.new([Symbol, String])
         type.storage[:values].must_equal Type::Union.new([String, Fixnum])
+        type.empty?.must_equal false
       end
 
       it "wraps an array" do
         type = Type::Array.new
         type.type.must_equal Array
         type.storage[:values].must_equal Type::Union.new
+        type.empty?.must_equal true
 
         type = Type::Array.new(String)
         type.type.must_equal Array
         type.storage[:values].must_equal Type::Union.new([String])
+        type.empty?.must_equal false
 
         type = Type.of([:foo, "bar", 42, :another, 21])
         type.type.must_equal Array
         type.storage[:values].must_equal Type::Union.new([String, Symbol, Fixnum])
+        type.empty?.must_equal false
       end
 
       it "wraps a set" do
         type = Type::Set.new
         type.type.must_equal Set
         type.storage[:values].must_equal Type::Union.new
+        type.empty?.must_equal true
 
         type = Type::Set.new(String)
         type.type.must_equal Set
         type.storage[:values].must_equal Type::Union.new([String])
+        type.empty?.must_equal false
 
         type = Type.of(Set.new([:foo, "bar", 42, :another, 21]))
         type.type.must_equal Set
         type.storage[:values].must_equal Type::Union.new([String, Symbol, Fixnum])
+        type.empty?.must_equal false
       end
     end
 

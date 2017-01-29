@@ -27,13 +27,18 @@ module Gravitype
 
   class Type::List
     def to_sugar(as_nullable = false)
-      "#{nonnull_to_sugar(as_nullable)}(#{values.types.map(&:to_sugar).join(", ")})"
+      type = nonnull_to_sugar(as_nullable)
+      empty? ? type : "#{type}#{contents_to_sugar}"
+    end
+
+    def contents_to_sugar
+      "(#{values.types.map(&:to_sugar).join(", ")})"
     end
   end
 
   class Type::Hash
-    def to_sugar(as_nullable = false)
-      "#{nonnull_to_sugar(as_nullable)}(#{keys.to_sugar} => #{values.to_sugar})"
+    def contents_to_sugar
+      "(#{keys.to_sugar} => #{values.to_sugar})"
     end
   end
 

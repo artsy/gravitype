@@ -9,28 +9,30 @@ describe Gravitype::Introspection do
   # end
 end
 
-class Gravitype::Introspection
-  describe Model do
+module Gravitype
+  describe Introspection::Model do
+    include Type::Sugar
+
     before do
       TestDoc.create(mongoid_string: 'foo', mongoid_hash: { 'foo' => 42 })
       TestDoc.create(mongoid_string: 'foo', mongoid_array: ['foo'])
       TestDoc.create(mongoid_string: 'foo', mongoid_set: Set.new(['foo']))
-      @model = Model.new(TestDoc)
+      @model = Introspection::Model.new(TestDoc)
     end
 
     it "merges the data and schema results" do
       result = @model.merge
-      result[:mongoid_hash].must_equal(Set.new([NilClass, { Set.new([String]) => Set.new([Fixnum]) }]))
-      result[:mongoid_array].must_equal(Set.new([NilClass, [String]]))
-      result[:mongoid_set].must_equal(Set.new([Set.new([String])]))
-      result[:mongoid_string].must_equal(Set.new([String]))
-      result[:mongoid_time].must_equal(Set.new([NilClass, Time]))
+      result[:mongoid_hash].type.must_equal Hash?(String! => Fixnum!)
+      result[:mongoid_array].type.must_equal Array?(String!)
+      result[:mongoid_set].type.must_equal Set!(String!)
+      result[:mongoid_string].type.must_equal String!
+      result[:mongoid_time].type.must_equal Time?
     end
 
     it "introspects both data and schema" do
       @model.introspect.must_equal(
-        data: Data.new(TestDoc).introspect,
-        schema: Schema.new(TestDoc).introspect,
+        data: Introspection::Data.new(TestDoc).introspect,
+        schema: Introspection::Schema.new(TestDoc).introspect,
         merged: @model.merge,
       )
     end

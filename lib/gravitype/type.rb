@@ -11,7 +11,15 @@ module Gravitype
       when ::Set
         Set.new(object)
       when Class
-        new(object)
+        if object == ::Hash
+          Hash.new
+        elsif object == ::Array
+          Array.new
+        elsif object == ::Set
+          Set.new
+        else
+          new(object)
+        end
       else
         new(object.class)
       end

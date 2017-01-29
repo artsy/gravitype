@@ -15,7 +15,7 @@ module Gravitype
         "Time" => Time,
         "Symbol" => Symbol,
         "String" => String,
-        "Regexp" => Regexp,
+        "Regexp" => BSON::Regexp::Raw,
         "Range" => Range,
         "Integer" => Integer,
         "Float" => Float,
@@ -24,9 +24,13 @@ module Gravitype
         "BigDecimal" => BigDecimal,
       }.freeze
 
-      SCALAR_TYPES.each do |name, klass|
+      def self.define_scalar_type(name, klass)
         define_method("#{name}!") { Type.new(klass) }
         define_method("#{name}?") { Type.new(klass) | null }
+      end
+
+      SCALAR_TYPES.each do |name, klass|
+        define_scalar_type(name, klass)
       end
 
       def null
@@ -45,6 +49,7 @@ module Gravitype
         Type::Set.new(*types)
       end
 
+      # TODO: It actually appears that mongo/mongoid does not return `null` for set fields.
       def Set?(*types)
         Set!(*types) | null
       end

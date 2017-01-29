@@ -37,31 +37,13 @@ module Gravitype
       end
 
       def merge
-        result = Hash.new { |h,k| h[k] = Set.new }
-        data.each do |field, classes|
-          result[field].merge(classes)
+        result = {}
+        merge_fields(data, result)
+        merge_fields(schema, result)
+        result.inject({}) do |hash, (name, field)|
+          hash[name] = field.normalize
+          hash
         end
-        schema.each do |field, classes|
-          classes.each do |klass|
-            # Prefer more detailed collection definitions
-            if klass == Hash
-              unless result[field].any? { |x| x.is_a?(Hash) }
-                result[field] << Hash
-              end
-            elsif klass == Array
-              unless result[field].any? { |x| x.is_a?(Array) }
-                result[field] << Array
-              end
-            elsif klass == Set
-              unless result[field].any? { |x| x.is_a?(Set) }
-                result[field] << Set
-              end
-            else
-              result[field] << klass
-            end
-          end
-        end
-        result
       end
 
       private
@@ -72,6 +54,16 @@ module Gravitype
 
       def schema
         @schema ||= Introspection::Schema.new(@model).introspect
+      end
+
+      def merge_fields(from, into)
+        from.each do |name, field|
+          if into[name]
+            into[name] = into[name].merge(field)
+          else
+            into[name] = field
+          end
+        end
       end
     end
   end

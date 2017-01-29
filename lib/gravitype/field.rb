@@ -24,5 +24,9 @@ module Gravitype
     def normalize
       Field.new(@name, @type.normalize)
     end
+
+    def ==(other)
+      other.is_a?(Field) && @name == other.name && @type == other.type
+    end
   end
 end

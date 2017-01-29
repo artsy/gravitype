@@ -42,7 +42,7 @@ module Gravitype
 
     def |(other)
       raise TypeError, "Can only make a union of Type and subclasses of Type" unless other.is_a?(Type)
-      Union.new([self, other])
+      other.is_a?(Union) ? (other | self) : Union.new([self, other])
     end
 
     def nullable?

@@ -14,6 +14,8 @@ module Gravitype
     it "returns a union type" do
       type = Type.new(String) | Type.new(Symbol) | Type.new(String)
       type.must_equal Type::Union.new([Type.new(String), Type.new(Symbol)])
+      type = Type.new(String) | (Type.new(Symbol) | Type.new(String))
+      type.must_equal Type::Union.new([Type.new(String), Type.new(Symbol)])
     end
 
     it "returns if it is nullable" do

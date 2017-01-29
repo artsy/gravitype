@@ -24,6 +24,13 @@ module Gravitype
       Formatter.format(Hash!(String! => Symbol! | Integer!)).must_equal "Hash!(String! => Symbol! | Integer!)"
     end
 
+    it "does not include full constant path for special types" do
+      Formatter.format(Boolean!).must_equal "Boolean!"
+      Formatter.format(ObjectId!).must_equal "ObjectId!"
+      Formatter.format(Binary!).must_equal "Binary!"
+      Formatter.format(Regexp!).must_equal "Regexp!"
+    end
+
     describe "nullability" do
       it "formats a nullable scalar" do
         Formatter.format(String?).must_equal "String?"

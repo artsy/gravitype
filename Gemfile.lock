@@ -28,6 +28,8 @@ GEM
     minitest (5.10.1)
     minitest-around (0.4.0)
       minitest (~> 5.0)
+    minitest-focus (1.1.2)
+      minitest (>= 4, < 6)
     minitest-reporters (1.1.13)
       ansi
       builder

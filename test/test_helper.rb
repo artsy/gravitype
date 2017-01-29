@@ -12,6 +12,7 @@ Mongo::Logger.logger = Mongoid.logger
 
 require "minitest/around"
 require "minitest/autorun"
+require "minitest/focus"
 require "minitest/reporters"
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new

@@ -6,7 +6,14 @@ module Gravitype
       attr_reader :types
 
       def initialize(types = [])
+        raise TypeError, "Requires an array of types" unless types.is_a?(::Array)
         @types = ::Set.new(types.map { |type| Type.of(type) })
+      end
+
+      def prominent_type
+        copy = types.dup
+        copy.delete_if { |type| type.type == NilClass }
+        copy.first if copy.size == 1
       end
 
       def ==(other)

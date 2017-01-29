@@ -7,22 +7,33 @@ module Gravitype
       Type.of('foo').type.must_equal String
     end
 
-    it "automatically wraps classes as types when creating a union type" do
-      Type::Union.new([Type.new(String), Type.new(Symbol)]).must_equal Type::Union.new([String, Symbol])
-    end
-
-    it "returns a union type" do
-      type = Type.new(String) | Type.new(Symbol) | Type.new(String)
-      type.must_equal Type::Union.new([Type.new(String), Type.new(Symbol)])
-      type = Type.new(String) | (Type.new(Symbol) | Type.new(String))
-      type.must_equal Type::Union.new([Type.new(String), Type.new(Symbol)])
-    end
-
     it "returns if it is nullable" do
       Type.new(NilClass).nullable?.must_equal true
       Type.new(String).nullable?.must_equal false
       Type::Union.new([Type.new(String)]).nullable?.must_equal false
       Type::Union.new([Type.new(NilClass), Type.new(String)]).nullable?.must_equal true
+    end
+
+    describe "union" do
+      it "automatically wraps classes as types when creating a union type" do
+        Type::Union.new([Type.new(String), Type.new(Symbol)]).must_equal Type::Union.new([String, Symbol])
+      end
+
+      it "returns a union type" do
+        type = Type.new(String) | Type.new(Symbol) | Type.new(String)
+        type.must_equal Type::Union.new([Type.new(String), Type.new(Symbol)])
+        type = Type.new(String) | (Type.new(Symbol) | Type.new(String))
+        type.must_equal Type::Union.new([Type.new(String), Type.new(Symbol)])
+      end
+
+      it "returns the prominent type, which is a single other type than null" do
+        Type::Union.new([Type.new(String)]).prominent_type.must_equal Type.new(String)
+        (Type.new(String) | Type.new(NilClass)).prominent_type.must_equal Type.new(String)
+
+        Type::Union.new([Type.new(NilClass)]).prominent_type.must_equal nil
+        (Type.new(String) | Type.new(Symbol)).prominent_type.must_equal nil
+        (Type.new(String) | Type.new(Symbol) | Type.new(NilClass)).prominent_type.must_equal nil
+      end
     end
 
     describe "list" do

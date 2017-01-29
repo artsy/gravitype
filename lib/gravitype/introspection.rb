@@ -28,7 +28,8 @@ module Gravitype
       #   hash
       # end
       start = Time.now
-      mapped = Parallel.map(models, in_processes: models.size) do |model|
+      # Use default, which is to spawn number of processes equal to CPU cores.
+      mapped = Parallel.map(models) do |model|
         puts model.name
         Model.new(model).introspect
       end

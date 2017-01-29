@@ -11,6 +11,10 @@ module Gravitype
         load_from_objects(objects)
       end
 
+      def normalize
+        self.class.new.tap { |copy| copy.values = values.normalize(false) }
+      end
+
       def values
         @storage[:values]
       end
@@ -71,6 +75,10 @@ module Gravitype
     class Hash < List
       def type
         ::Hash
+      end
+
+      def normalize
+        super.tap { |copy| copy.keys = keys.normalize(false) }
       end
 
       def keys

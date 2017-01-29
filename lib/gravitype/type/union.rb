@@ -22,20 +22,20 @@ module Gravitype
         Union.new((types + other.types).to_a)
       end
 
-      def normalize
+      def normalize(unwrap_single_type = true)
         normalized = Union.new
         types = self.types.dup
 
         arrays = types.select { |type| type.type == ::Array }
         unless arrays.empty?
           types -= arrays
-          normalized |= Array.new(arrays.map(&:values).reduce(:|).types.to_a)
+          normalized |= Array.new(arrays.map(&:values).reduce(:|).types.to_a).normalize
         end
 
         sets = types.select { |type| type.type == ::Set }
         unless sets.empty?
           types -= sets
-          normalized |= Set.new(sets.map(&:values).reduce(:|).types.to_a)
+          normalized |= Set.new(::Set.new(sets.map(&:values).reduce(:|).types.to_a)).normalize
         end
 
         hashes = types.select { |type| type.type == ::Hash }
@@ -44,13 +44,13 @@ module Gravitype
           hash = Hash.new
           hash.keys |= hashes.map(&:keys).reduce(:|)
           hash.values |= hashes.map(&:values).reduce(:|)
-          normalized |= hash
+          normalized |= hash.normalize
         end
 
         # Add remainder
-        types.each { |type| normalized |= type }
+        types.each { |type| normalized |= type.normalize }
         # If there’s only 1 type, unwrap it from the union type.
-        normalized = normalized.types.first if normalized.types.size == 1
+        normalized = normalized.types.first if unwrap_single_type && normalized.types.size == 1
 
         normalized
       end

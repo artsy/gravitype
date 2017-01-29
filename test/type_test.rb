@@ -91,6 +91,11 @@ module Gravitype
         type = Type::Array.new(String) | Type.new(Symbol)
         type.normalize.must_equal(type)
       end
+
+      it "flattens unions" do
+        type = Type::Union.new([Type.new(String) | Type.new(Boolean), Type.new(Symbol) | Type.new(Boolean)])
+        type.normalize.must_equal Type.new(String) | Type.new(Symbol) | Type.new(Boolean)
+      end
     end
   end
 end

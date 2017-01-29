@@ -39,6 +39,17 @@ module Gravitype
         transformed = Mongoid.transform_field(Field.new(:foo, Hash!((TrueClass! | FalseClass! | Boolean!) => (TrueClass! | FalseClass! | Boolean!))))
         transformed.must_equal Field.new(:foo, Hash!(Boolean! => Boolean!))
       end
+
+      it "reduces Object if there’s any other type than null" do
+        transformed = Mongoid.transform_field(Field.new(:foo, Object!))
+        transformed.must_equal Field.new(:foo, Object!)
+
+        transformed = Mongoid.transform_field(Field.new(:foo, Object! | String!))
+        transformed.must_equal Field.new(:foo, String!)
+
+        transformed = Mongoid.transform_field(Field.new(:foo, Object?))
+        transformed.must_equal Field.new(:foo, Object?)
+      end
     end
   end
 end

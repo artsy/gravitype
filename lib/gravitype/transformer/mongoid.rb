@@ -15,6 +15,9 @@ module Gravitype
 
   class Type::Union
     def to_mongoid(unwrap_single_type = true)
+      types = self.types.dup
+      types.delete_if { |type| type.type == Object }
+      types = self.types if types.empty? || (types.size == 1 && types.first.type == NilClass)
       Union.new(types.map(&:to_mongoid)).normalize(unwrap_single_type)
     end
   end

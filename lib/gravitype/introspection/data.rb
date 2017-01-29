@@ -13,7 +13,8 @@ module Gravitype
         else
           progressbar = ProgressBar.create(
             total: @model.all.count + fields_with_getters.size,
-            format: "#{@model.name}: %B %p%% %t"
+            title: @model.name,
+            format: "%t |%E | %B | %p%%",
           )
         end
 
@@ -31,11 +32,15 @@ module Gravitype
           end
           progressbar.increment
         end
-        fields.map do |name, field|
+
+        result = fields.map do |name, field|
           normalized = field.normalize
           progressbar.increment
           normalized
         end
+
+        progressbar.finish
+        result
       end
     end
   end

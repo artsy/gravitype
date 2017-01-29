@@ -54,6 +54,10 @@ module Gravitype
 
         normalized
       end
+
+      def inspect
+        "#<Type:Union [#{@types.map(&:inspect).join(", ")}]>"
+      end
     end
   end
 end

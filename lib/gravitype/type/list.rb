@@ -27,6 +27,10 @@ module Gravitype
         [super, @storage].hash
       end
 
+      def inspect
+        "#<Type:#{type} [#{values.inspect}]>"
+      end
+
       private
 
       def new_storage
@@ -75,6 +79,10 @@ module Gravitype
 
       def keys=(keys)
         @storage[:keys] = keys
+      end
+
+      def inspect
+        "#<Type:#{type} { [#{keys.inspect}] => [#{values.inspect}] }>"
       end
 
       private

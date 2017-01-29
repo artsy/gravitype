@@ -52,6 +52,10 @@ module Gravitype
     def normalize
       self
     end
+
+    def inspect
+      "#<Type:#{type}>"
+    end
   end
 end
 

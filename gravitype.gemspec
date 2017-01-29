@@ -38,5 +38,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "minitest-around", "~> 0.4"
   spec.add_development_dependency "minitest-reporters"
+  spec.add_development_dependency "minitest-sprint"
   spec.add_development_dependency "database_cleaner", "~> 1.5"
 end

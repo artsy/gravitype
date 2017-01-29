@@ -8,10 +8,15 @@ module Gravitype
     # Collects type information from the actual data in the DB.
     class Data < Introspection
       def introspect(fields_with_getters = exposed_fields_and_getters)
-        progressbar = ProgressBar.create(
-          total: @model.all.count + fields_with_getters.size,
-          format: "#{@model.name}: %B %p%% %t"
-        )
+        if ENV["DISABLE_PROGRESS_BAR"]
+          progressbar = Object.new
+          def progressbar.increment; end
+        else
+          progressbar = ProgressBar.create(
+            total: @model.all.count + fields_with_getters.size,
+            format: "#{@model.name}: %B %p%% %t"
+          )
+        end
 
         # For each document in the DB, get the type of each field’s values.
         fields_with_classes = Hash.new { |h,k| h[k] = Set.new }

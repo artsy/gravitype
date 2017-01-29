@@ -21,6 +21,9 @@ GEM
     builder (3.2.2)
     concurrent-ruby (1.0.3)
     database_cleaner (1.5.3)
+    debase (0.2.1)
+      debase-ruby_core_source
+    debase-ruby_core_source (0.9.6)
     i18n (0.7.0)
     minitest (5.10.1)
     minitest-around (0.4.0)
@@ -30,6 +33,8 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    minitest-sprint (1.2.0)
+      path_expander (~> 1.0)
     mongo (2.4.1)
       bson (>= 4.2.1, < 5.0.0)
     mongoid (6.0.3)
@@ -37,7 +42,10 @@ GEM
       mongo (~> 2.3)
     mongoid-cached-json (1.5.3)
       mongoid (>= 3.0)
+    path_expander (1.0.1)
     rake (10.5.0)
+    ruby-debug-ide (0.6.0)
+      rake (>= 0.8.1)
     ruby-progressbar (1.8.1)
     thread_safe (0.3.5)
     tzinfo (1.2.2)
@@ -49,11 +57,15 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.13)
   database_cleaner (~> 1.5)
+  debase
   gravitype!
   minitest (~> 5.0)
   minitest-around (~> 0.4)
+  minitest-focus
   minitest-reporters
+  minitest-sprint
   rake (~> 10.0)
+  ruby-debug-ide
 
 BUNDLED WITH
    1.13.6

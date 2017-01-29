@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Tests",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "useBundler": true,
+            "program": "${workspaceRoot}/bin/minitest",
+            "env": {
+              "DISABLE_PROGRESS_BAR": "1"
+            }
+        }
+    ]
+}

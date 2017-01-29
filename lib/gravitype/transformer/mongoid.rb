@@ -1,4 +1,5 @@
 require "mongoid"
+require "active_support"
 
 module Gravitype
   class Type
@@ -7,6 +8,8 @@ module Gravitype
         Type.new(::Mongoid::Boolean)
       elsif type == Fixnum
         Type.new(Integer)
+      elsif type == ActiveSupport::TimeWithZone
+        Type.new(Time)
       else
         self
       end

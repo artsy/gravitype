@@ -20,6 +20,11 @@ module Gravitype
         transformed.must_equal Field.new(:foo, Integer!)
       end
 
+      it "converts ActiveSupport::TimeWithZone to Time" do
+        transformed = Mongoid.transform_field(Field.new(:foo, Type.new(ActiveSupport::TimeWithZone)))
+        transformed.must_equal Field.new(:foo, Time!)
+      end
+
       it "converts types in a union and reduces" do
         transformed = Mongoid.transform_field(Field.new(:foo, TrueClass! | FalseClass! | Boolean!))
         transformed.must_equal Field.new(:foo, Boolean!)

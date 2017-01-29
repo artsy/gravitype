@@ -15,6 +15,8 @@ require "minitest/autorun"
 require "minitest/focus"
 require "minitest/reporters"
 
+ENV["TESTING"] = "1"
+
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 require "database_cleaner"

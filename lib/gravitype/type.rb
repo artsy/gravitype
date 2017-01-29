@@ -61,3 +61,4 @@ end
 
 require "gravitype/type/union"
 require "gravitype/type/list"
+require "gravitype/type/sugar"

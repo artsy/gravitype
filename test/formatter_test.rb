@@ -2,7 +2,7 @@ require "test_helper"
 
 module Gravitype
   describe Formatter do
-    include Type::Sugar
+    include Type::DSL
 
     it "formats a scalar" do
       Formatter.format(String!).must_equal "String!"

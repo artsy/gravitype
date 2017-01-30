@@ -3,7 +3,7 @@ require "test_helper"
 module Gravitype
   module Transformer
     describe Mongoid do
-      include Type::Sugar
+      include Type::DSL
 
       it "converts TrueClass to Boolean" do
         transformed = Mongoid.transform_field(Field.new(:foo, TrueClass!))

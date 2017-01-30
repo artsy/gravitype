@@ -11,7 +11,7 @@ end
 
 module Gravitype
   describe Introspection::Model do
-    include Type::Sugar
+    include Type::DSL
 
     before do
       TestDoc.create(mongoid_string: 'foo', mongoid_hash: { 'foo' => 42 })

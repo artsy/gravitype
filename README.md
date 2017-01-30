@@ -21,10 +21,10 @@
 
 ## DSL
 
-To specify type information, you can use the `Gravitype::Type::Sugar` module.
+To specify type information, you can use the `Gravitype::Type::DSL` module.
 
 ```ruby
-include Gravitype::Type::Sugar
+include Gravitype::Type::DSL
 ```
 
 The bang methods are used to define types.

@@ -2,7 +2,7 @@ require "mongoid"
 
 module Gravitype
   class Type
-    module Sugar
+    module DSL
       def self.define_scalar_type(name, klass)
         define_method("#{name}!") { Type.new(klass) }
         define_method("#{name}?") { Type.new(klass) | null }

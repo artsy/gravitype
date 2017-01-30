@@ -2,7 +2,7 @@ require "test_helper"
 
 module Gravitype
   describe "Data introspection of Mongoid backed fields" do
-    include Type::Sugar
+    include Type::DSL
 
     it "returns all types that exist for a `string` field" do
       result = introspect_field(:mongoid_string, [nil, "foo", "bar"])
@@ -74,7 +74,7 @@ module Gravitype
       result.type.must_equal Array?(String!, Symbol!, Fixnum!)
     end
 
-    # TODO: As stated in the Sugar#Set? docs, mongo/mongoid does not return `null` for set fields.
+    # TODO: As stated in the DSL#Set? docs, mongo/mongoid does not return `null` for set fields.
     it "returns all types that exist for a `set` field" do
       result = introspect_field(:mongoid_set, [nil, Set.new, Set.new(["foo", :bar]), Set.new([42])])
       result.type.must_equal Set!(String!, Symbol!, Fixnum!)
@@ -94,7 +94,7 @@ module Gravitype
   end
 
   describe "Data introspection of Ruby backed fields" do
-    include Type::Sugar
+    include Type::DSL
 
     it "uses the provided method alias to get the value from the document" do
       TestDoc.create!

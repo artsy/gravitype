@@ -48,6 +48,6 @@ class TestDoc
   json_fields(fields)
 end
 
-Gravitype::Type::Sugar.define_scalar_type("TrueClass", TrueClass)
-Gravitype::Type::Sugar.define_scalar_type("FalseClass", FalseClass)
-Gravitype::Type::Sugar.define_scalar_type("Fixnum", Fixnum)
+Gravitype::Type::DSL.define_scalar_type("TrueClass", TrueClass)
+Gravitype::Type::DSL.define_scalar_type("FalseClass", FalseClass)
+Gravitype::Type::DSL.define_scalar_type("Fixnum", Fixnum)

@@ -41,10 +41,4 @@ module Gravitype
       "(#{keys.to_dsl} => #{values.to_dsl})"
     end
   end
-
-  module Formatter
-    def self.format(type)
-      type.to_dsl
-    end
-  end
 end

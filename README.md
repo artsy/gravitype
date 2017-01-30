@@ -69,8 +69,8 @@ class Artist
   include Gravitype::Type::DSL
 
   field :name, type: String?
-  field image_versions: Array!(Symbol!)
-  field image_urls: Hash!(String! => String!)
+  field :image_versions, type: Array!(Symbol!)
+  field :image_urls, type: Hash!(String! => String!)
 end
 ```
 

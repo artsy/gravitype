@@ -1,41 +1,63 @@
-# Gravitype
+ ██████╗ ██████╗  █████╗ ██╗   ██╗██╗████████╗██╗   ██╗██████╗ ███████╗
+██╔════╝ ██╔══██╗██╔══██╗██║   ██║██║╚══██╔══╝╚██╗ ██╔╝██╔══██╗██╔════╝
+██║  ███╗██████╔╝███████║██║   ██║██║   ██║    ╚████╔╝ ██████╔╝█████╗
+██║   ██║██╔══██╗██╔══██║╚██╗ ██╔╝██║   ██║     ╚██╔╝  ██╔═══╝ ██╔══╝
+╚██████╔╝██║  ██║██║  ██║ ╚████╔╝ ██║   ██║      ██║   ██║     ███████╗
+ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝   ╚═╝      ╚═╝   ╚═╝     ╚══════╝
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/gravitype`. To experiment with that code, run `bin/console` for an interactive prompt.
+ Typing support for Gravity, Artsy’s Core API. It’s not actually bound to Gravity, though, it’s more of a Mongoid addon
+ that needs finishing and some more generalization to be useful to other projects.
 
-TODO: Delete this and the text above, and describe your gem
+## Status
 
-## Installation
+- [x] Expresses interfaces for pre-existing data in a database.
+- [x] DSL to describe interfaces.
+- [ ] Make recommendations about what types to add to which fields, based on pre-existing data.
+- [ ] Tool to apply recommendations in an automated fashion.
+- [ ] Export interfaces, in a format like JSON Schema, so it can be used to generate TypeScript interfaces etc.
+- [ ] Add data validations to model on definition and allow checing validity of existing data.
 
-Add this line to your application's Gemfile:
+## DSL
+
+To specify type information, you can use the `Gravitype::Type::Sugar` module.
 
 ```ruby
-gem 'gravitype'
+include Gravitype::Type::Sugar
 ```
 
-And then execute:
+The bang methods are used to define types.
 
-    $ bundle
+```ruby
+String!                    # => #<Type:String>
+```
 
-Or install it yourself as:
+You can allow multiple types by creating a union of them.
 
-    $ gem install gravitype
+```ruby
+String! | Integer!         # => #<Type:Union [#<Type:String>, #<Type:Integer>]>
+```
 
-## Usage
+Sometimes a field can also be null.
 
-TODO: Write usage instructions here
+```ruby
+String! | Integer! | null  # => #<Type:Union [#<Type:String>, , #<Type:Integer>, #<Type:NilClass>]>
+```
 
-## Development
+If you’re defining a single type, but nullable, use the question mark methods instead.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```ruby
+String?                    # => #<Type:Union [#<Type:String>, #<Type:NilClass>]>
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+You can have collections too, you use them like you normally would.
 
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/gravitype.
-
+```ruby
+Set!(String!, Integer!)    # => #<Type:Set [#<Type:Union [#<Type:String>, #<Type:Integer>]>]>
+Array!(String!, Integer!)  # => #<Type:Array [#<Type:Union [#<Type:String>, #<Type:Integer>]>]>
+Hash!(String! => Integer!) # => #<Type:Hash { [#<Type:Union [#<Type:String>]>] => [#<Type:Union [#<Type:Integer>]>] }>
+```
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT License](LICENSE).
 

@@ -59,6 +59,24 @@ Array!(String!, Integer!)  # => #<Type:Array [#<Type:Union [#<Type:String>, #<Ty
 Hash!(String! => Integer!) # => #<Type:Hash { [#<Type:Union [#<Type:String>]>] => [#<Type:Union [#<Type:Integer>]>] }>
 ```
 
+## Mongoid
+
+_NOTE: This is not yet implemented._
+
+```ruby
+class Artist
+  include Mongoid::Document
+  include Gravitype::Type::DSL
+
+  field :name, type: String?
+  field image_versions: Array!(Symbol!)
+  field image_urls: Hash!(String! => String!)
+end
+```
+
+The type information is stored for later reflection, for example when generating a JSON Schema, and model validations
+are added to ensure the data conforms to the type.
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](LICENSE).

@@ -7,8 +7,15 @@
  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝   ╚═╝      ╚═╝   ╚═╝     ╚══════╝
 ```
 
- Typing support for Gravity, Artsy’s Core API. It’s not actually bound to Gravity, though, it’s more of a Mongoid addon
- that needs finishing and some more generalization to be useful to other projects.
+Typing support for Gravity, Artsy’s Core API. It’s not actually bound to Gravity, though, it’s more of a Mongoid addon
+that needs finishing and some more generalization to be useful to other projects.
+
+It’s current main focus is to provide type information about payloads to clients such as [metaphysics]. It does this by
+providing type information of model properties exported through the use of `json_fields`, including the various scopes,
+such as `all`, `short`, etc, such that the clients using these interfaces can only use the properties actually provided.
+
+Additionally it can be used as a starting point for various other type information related tasks, such as validating
+existing and incoming data.
 
 ## Status
 
@@ -81,3 +88,4 @@ are added to ensure the data conforms to the type.
 
 The gem is available as open source under the terms of the [MIT License](LICENSE).
 
+[metaphysics]: http://github.com/artsy/metaphysics

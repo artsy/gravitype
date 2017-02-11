@@ -30,9 +30,9 @@ module Gravitype
         Type::Union.new([Type.new(String)]).prominent_type.must_equal Type.new(String)
         (Type.new(String) | Type.new(NilClass)).prominent_type.must_equal Type.new(String)
 
-        Type::Union.new([Type.new(NilClass)]).prominent_type.must_equal nil
-        (Type.new(String) | Type.new(Symbol)).prominent_type.must_equal nil
-        (Type.new(String) | Type.new(Symbol) | Type.new(NilClass)).prominent_type.must_equal nil
+        Type::Union.new([Type.new(NilClass)]).prominent_type.must_be_nil
+        (Type.new(String) | Type.new(Symbol)).prominent_type.must_be_nil
+        (Type.new(String) | Type.new(Symbol) | Type.new(NilClass)).prominent_type.must_be_nil
       end
 
       it "returns whether or not it’s empty" do

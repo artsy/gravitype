@@ -91,6 +91,10 @@ module Gravitype
       self
     end
 
+    def prominent_type
+      self
+    end
+
     def inspect
       "#<Type:#{type}>"
     end

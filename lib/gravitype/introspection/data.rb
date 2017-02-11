@@ -6,43 +6,87 @@ module Gravitype
   class Introspection
     # Collects type information from the actual data of the model.
     class Data < Introspection
-      def introspect(fields_with_getters)
-        if ENV["TESTING"]
-          progressbar = Object.new
-          def progressbar.increment; end
-          def progressbar.finish; end
-        else
-          progressbar = ProgressBar.create(
-            total: @model.all.count + fields_with_getters.size,
-            title: @model.name,
-            format: "%t |%E | %B | %p%%",
-          )
+      attr_accessor :visitors
+
+      def initialize(*)
+        super
+        @visitors = [
+          Visitor::Mongoid.new,
+          Visitor::JSONFields.new(:all),
+          Visitor::JSONFields.new(:public),
+          Visitor::JSONFields.new(:short),
+        ]
+      end
+
+      def introspect
+        return @result if @result
+
+        @model.all.each do |document|
+          @visitors.each do |visitor|
+            visitor.visit(document)
+          end
         end
 
-        fields = {}
-        @model.all.each do |doc|
-          fields_with_getters.each do |name, getter|
+        @result = @visitors.inject({}) do |result, visitor|
+          result[visitor.type] = visitor.collected
+          result
+        end
+      end
+
+      class Visitor
+        def initialize
+          @collected = {}
+        end
+
+        def type
+          raise NotImplementedError
+        end
+
+        def visit(attributes)
+          attributes.each do |name, value|
             name = name.to_sym
-            value = doc.send(getter)
             field = Field.new(name, Type.of(value))
-            if fields[name]
-              fields[name].merge!(field)
+            if @collected[name]
+              @collected[name].merge!(field)
             else
-              fields[name] = field
+              @collected[name] = field
             end
           end
-          progressbar.increment
         end
 
-        result = fields.map do |name, field|
-          normalized = field.normalize
-          progressbar.increment
-          normalized
+        def collected
+          @collected.values.map(&:normalize).extend(ResultSet)
+        end
+      end
+
+      class Visitor
+        class Mongoid < Visitor
+          def type
+            :mongoid_data
+          end
+
+          def visit(document)
+            super(document.class.fields.keys.inject({}) do |attributes, field|
+              attributes[field] = document.send(field)
+              attributes
+            end)
+          end
         end
 
-        progressbar.finish
+        class JSONFields < Visitor
+          def initialize(scope)
+            super()
+            @scope = scope
+          end
 
-        result.extend(ResultSet)
+          def type
+            "#{@scope}_json_fields".to_sym
+          end
+
+          def visit(document)
+            super(document.as_json(properties: @scope))
+          end
+        end
       end
     end
   end

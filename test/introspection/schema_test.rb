@@ -8,7 +8,8 @@ module Gravitype
           # TODO Does Mongoid know if this is nullable?
           Field.new("mongoid_#{name}".to_sym, Type.of(type))
         end
-        Schema.new(TestDoc).introspect(expected.map(&:name)).must_equal(expected)
+        expected << Field.new(:_id, Type.new(BSON::ObjectId))
+        Schema.new(TestDoc).introspect[:mongoid_schema].sort.must_equal(expected.sort)
       end
     end
   end

@@ -62,43 +62,22 @@ module Gravitype
         @model = model
       end
 
-      def data
-        @data ||= Introspection::Data.new(@model).introspect(data_introspection_fields)
+      def schema
+        @schema ||= Schema.new(@model).introspect
       end
 
-      def schema
-        @schema ||= Introspection::Schema.new(@model).introspect(mongoid_fields)
+      def data
+        @data ||= Data.new(@model).introspect
       end
 
       def merged
-        @merged ||= Introspection.merge(data, schema)
+        {
+          merged: Introspection.merge(schema[:mongoid_schema], data[:mongoid_data], data[:all_json_fields])
+        }
       end
 
-      def subset(group)
-        fields = if group == :schema
-                   mongoid_fields.keys
-                 elsif match = group.to_s.match(/^(\w+)_json_fields$/)
-                   json_fields(match[1]).keys
-                 else
-                   raise ArgumentError, "Unknown subset group: #{group}"
-                 end
-        merged.select { |field| fields.include?(field.name) }
-      end
-
-      def mongoid_fields
-        fields = @model.fields.keys.map(&:to_sym)
-        Hash[*fields.zip(fields).flatten]
-      end
-
-      def json_fields(properties = :all)
-        @model.cached_json_field_defs[properties.to_sym].inject({}) do |fields, (field, options)|
-          fields[field] = options[:definition] || field
-          fields
-        end
-      end
-
-      def data_introspection_fields
-        mongoid_fields.merge(json_fields)
+      def introspect
+        schema.merge(data).merge(merged)
       end
     end
   end

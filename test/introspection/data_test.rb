@@ -88,18 +88,56 @@ module Gravitype
     private
 
     def introspect_field(field, values)
-      values.each { |value| TestDoc.create!(field => value) }
-      Gravitype::Introspection::Data.new(TestDoc).introspect(field => field)[field]
+      values.each do |value|
+        TestDoc.create!(field => value)
+      end
+      introspection = Introspection::Data.new(TestDoc)
+      # introspection.visitors = [Introspection::Data::Visitor::Mongoid.new]
+      introspection.introspect[:mongoid_data][field]
     end
   end
 
-  describe "Data introspection of Ruby backed fields" do
+  describe "Data introspection of json_fields" do
     include Type::DSL
 
-    it "uses the provided method alias to get the value from the document" do
+    before do
       TestDoc.create!
-      result = Gravitype::Introspection::Data.new(TestDoc).introspect(:ruby_method => :ruby_method?)
-      result.first.type.must_equal String!
+      @introspection = Introspection::Data.new(TestDoc).introspect
+    end
+
+    it "returns `json_fields :all`" do
+      @introspection[:all_json_fields].map(&:name).must_equal([
+        :ruby_method,
+        :ruby_proc,
+        :mongoid_string,
+        :mongoid_array,
+        :mongoid_hash,
+      ])
+    end
+
+    it "returns `json_fields :public`" do
+      @introspection[:public_json_fields].map(&:name).must_equal([
+        :ruby_method,
+        :mongoid_string,
+        :mongoid_array,
+      ])
+    end
+
+    it "returns `json_fields :short`" do
+      @introspection[:short_json_fields].map(&:name).must_equal([
+        :ruby_method,
+        :mongoid_string,
+      ])
+    end
+
+    it "retrieves the value of ruby method backed fields" do
+      field = @introspection[:all_json_fields][:ruby_method]
+      field.type.must_equal String!
+    end
+
+    it "retrieves the value of ruby proc backed fields" do
+      field = @introspection[:all_json_fields][:ruby_proc]
+      field.type.must_equal Symbol!
     end
   end
 end

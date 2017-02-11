@@ -11,27 +11,8 @@ module Gravitype
       @model = Introspection::Model.new(TestDoc)
     end
 
-    it "returns the fields of the mongoid schema (getter is same as field)" do
-      fields = @model.mongoid_fields
-      fields.keys.must_equal TestDoc.fields.keys.map(&:to_sym)
-      fields.values.must_equal fields.keys
-    end
-
-    it "returns the fields exposed through `json_fields`" do
-      @model.json_fields.must_equal({
-        ruby_method: :ruby_method?,
-        mongoid_string: :mongoid_string,
-        mongoid_array: :mongoid_array,
-        mongoid_hash: :mongoid_hash,
-      })
-    end
-
-    it "returns a union of mongoid schema and json_fields fields to introspect data of" do
-      @model.data_introspection_fields.must_equal @model.mongoid_fields.merge(@model.json_fields)
-    end
-
     it "merges the data and schema results" do
-      result = @model.merged
+      result = @model.merged[:merged]
       result[:ruby_method].type.must_equal String!
       result[:mongoid_hash].type.must_equal Hash?(String! => Fixnum!)
       result[:mongoid_array].type.must_equal Array?(String!)
@@ -40,36 +21,15 @@ module Gravitype
       result[:mongoid_time].type.must_equal Time?
     end
 
-    describe "subsets of merged fields" do
-      it "scopes fields to only those that exist in the schema" do
-        subset = @model.merged.dup
-        subset.delete_field(:ruby_method)
-        @model.subset(:schema).must_equal subset
-      end
-
-      it "scopes fields to only those that exist in `json_fields :all`" do
-        @model.subset(:all_json_fields).sort.must_equal([
-          @model.merged[:ruby_method],
-          @model.merged[:mongoid_string],
-          @model.merged[:mongoid_array],
-          @model.merged[:mongoid_hash],
-        ].sort)
-      end
-
-      it "scopes fields to only those that exist in `json_fields :public`" do
-        @model.subset(:public_json_fields).sort.must_equal([
-          @model.merged[:ruby_method],
-          @model.merged[:mongoid_string],
-          @model.merged[:mongoid_array],
-        ].sort)
-      end
-
-      it "scopes fields to only those that exist in `json_fields :short`" do
-        @model.subset(:short_json_fields).sort.must_equal([
-          @model.merged[:ruby_method],
-          @model.merged[:mongoid_string],
-        ].sort)
-      end
+    it "returns all introspections" do
+      @model.introspect.keys.must_equal([
+        :mongoid_schema,
+        :mongoid_data,
+        :all_json_fields,
+        :public_json_fields,
+        :short_json_fields,
+        :merged,
+      ])
     end
   end
 end

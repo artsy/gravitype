@@ -41,6 +41,7 @@ class TestDoc
 
   json_fields({
     ruby_method:    { properties: :short, definition: :ruby_method? },
+    ruby_proc:      { properties: :all,   definition: lambda { |instance| :ok } },
     mongoid_string: { properties: :short },
     mongoid_array:  { properties: :public },
     mongoid_hash:   { properties: :all },

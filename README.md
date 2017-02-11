@@ -21,7 +21,7 @@ existing and incoming data.
 
 - [x] DSL to describe interfaces.
 - [-] Expresses interfaces for pre-existing data in a database.
-  - [-] Infer types of data for given list of getters.
+  - [x] Infer types of data for given list of getters.
   - [ ] Split inferred types into the following groups:
     - [ ] Mongoid Schema
     - [ ] `json_fields :all`

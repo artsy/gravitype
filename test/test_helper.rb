@@ -39,13 +39,12 @@ class TestDoc
     "string"
   end
 
-  fields = Mongoid::Fields::TYPE_MAPPINGS.keys.inject({}) do |hash, name|
-    hash["mongoid_#{name}".to_sym] = {}
-    hash
-  end
-  fields[:ruby_method] = { definition: :ruby_method? }
-
-  json_fields(fields)
+  json_fields({
+    ruby_method: { definition: :ruby_method?},
+    mongoid_string: {},
+    mongoid_array: {},
+    mongoid_hash: {},
+  })
 end
 
 Gravitype::Type::DSL.define_scalar_type("TrueClass", TrueClass)

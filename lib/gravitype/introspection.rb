@@ -4,19 +4,26 @@ module Gravitype
       @model = model
     end
 
-    def exposed_fields_and_getters
-      @model.cached_json_field_defs[:all].inject({}) do |fields, (field, options)|
-        fields[field] = options[:definition] || field
-        fields
-      end
-    end
-
     def introspect
       raise NotImplementedError
     end
   end
 
   class Introspection
+    def self.merge(*introspections)
+      introspections.inject({}) do |merged, introspection|
+        introspection.each do |field|
+          name = field.name
+          if merged[name]
+            merged[name] = merged[name].merge(field)
+          else
+            merged[name] = field
+          end
+        end
+        merged
+      end.values.map(&:normalize)
+    end
+
     def self.introspect(*models)
       if models.empty?
         models = Mongoid.models.select { |model| model.try(:cached_json_field_defs) }
@@ -33,35 +40,35 @@ module Gravitype
       end
 
       def introspect
-        { data: data, schema: schema, merged: merge }
+        { data: data, schema: schema, merged: merged }
       end
-
-      def merge
-        merged = {}
-        merge_fields(data, merged)
-        merge_fields(schema, merged)
-        merged.map { |_, field| field.normalize }
-      end
-
-      private
 
       def data
-        @data ||= Introspection::Data.new(@model).introspect
+        @data ||= Introspection::Data.new(@model).introspect(data_introspection_fields)
       end
 
       def schema
-        @schema ||= Introspection::Schema.new(@model).introspect
+        @schema ||= Introspection::Schema.new(@model).introspect(mongoid_fields)
       end
 
-      def merge_fields(from, into)
-        from.each do |field|
-          name = field.name
-          if into[name]
-            into[name] = into[name].merge(field)
-          else
-            into[name] = field
-          end
+      def merged
+        @merged ||= Introspection.merge(data, schema)
+      end
+
+      def mongoid_fields
+        fields = @model.fields.keys.map(&:to_sym)
+        Hash[*fields.zip(fields).flatten]
+      end
+
+      def json_fields
+        @model.cached_json_field_defs[:all].inject({}) do |fields, (field, options)|
+          fields[field] = options[:definition] || field
+          fields
         end
+      end
+
+      def data_introspection_fields
+        mongoid_fields.merge(json_fields)
       end
     end
   end

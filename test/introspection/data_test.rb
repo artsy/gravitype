@@ -89,7 +89,7 @@ module Gravitype
 
     def introspect_field(field, values)
       values.each { |value| TestDoc.create!(field => value) }
-      Gravitype::Introspection::Data.new(TestDoc).introspect(field => field).first
+      Gravitype::Introspection::Data.new(TestDoc).introspect(field => field)[field]
     end
   end
 

@@ -10,7 +10,7 @@ module Gravitype
         fields.map do |name|
           mongo_field = @model.fields[name.to_s]
           Field.new(name.to_sym, Type.of(mongo_field.type))
-        end
+        end.extend(ResultSet)
       end
     end
   end

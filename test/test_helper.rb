@@ -40,10 +40,10 @@ class TestDoc
   end
 
   json_fields({
-    ruby_method: { definition: :ruby_method?},
-    mongoid_string: {},
-    mongoid_array: {},
-    mongoid_hash: {},
+    ruby_method:    { properties: :short, definition: :ruby_method? },
+    mongoid_string: { properties: :short },
+    mongoid_array:  { properties: :public },
+    mongoid_hash:   { properties: :all },
   })
 end
 

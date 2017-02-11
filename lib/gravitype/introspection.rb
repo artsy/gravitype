@@ -21,7 +21,7 @@ module Gravitype
           end
         end
         merged
-      end.values.map(&:normalize)
+      end.values.map(&:normalize).extend(ResultSet)
     end
 
     def self.introspect(*models)
@@ -34,13 +34,32 @@ module Gravitype
       end
     end
 
+    # Used to extend introspection results, which are arrays, for easy access by field name.
+    module ResultSet
+      def [](field_or_index)
+        if field_or_index.is_a?(Symbol)
+          find { |field| field.name == field_or_index }
+        else
+          super
+        end
+      end
+
+      def delete_field(name)
+        delete_if { |field| field.name == name }
+      end
+
+      def dup
+        super.extend(ResultSet)
+      end
+
+      def select
+        super.extend(ResultSet)
+      end
+    end
+
     class Model
       def initialize(model)
         @model = model
-      end
-
-      def introspect
-        { data: data, schema: schema, merged: merged }
       end
 
       def data
@@ -55,13 +74,24 @@ module Gravitype
         @merged ||= Introspection.merge(data, schema)
       end
 
+      def subset(group)
+        fields = if group == :schema
+                   mongoid_fields.keys
+                 elsif match = group.to_s.match(/^(\w+)_json_fields$/)
+                   json_fields(match[1]).keys
+                 else
+                   raise ArgumentError, "Unknown subset group: #{group}"
+                 end
+        merged.select { |field| fields.include?(field.name) }
+      end
+
       def mongoid_fields
         fields = @model.fields.keys.map(&:to_sym)
         Hash[*fields.zip(fields).flatten]
       end
 
-      def json_fields
-        @model.cached_json_field_defs[:all].inject({}) do |fields, (field, options)|
+      def json_fields(properties = :all)
+        @model.cached_json_field_defs[properties.to_sym].inject({}) do |fields, (field, options)|
           fields[field] = options[:definition] || field
           fields
         end

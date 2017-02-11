@@ -41,7 +41,8 @@ module Gravitype
         end
 
         progressbar.finish
-        result
+
+        result.extend(ResultSet)
       end
     end
   end

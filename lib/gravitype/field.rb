@@ -29,6 +29,10 @@ module Gravitype
       other.is_a?(Field) && @name == other.name && @type == other.type
     end
 
+    def <=>(other)
+      @name <=> other.name
+    end
+
     def inspect
       "{ #{@name}: #{@type.inspect} }"
     end

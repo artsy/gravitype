@@ -19,12 +19,24 @@ existing and incoming data.
 
 ## Status
 
-- [x] Expresses interfaces for pre-existing data in a database.
 - [x] DSL to describe interfaces.
-- [ ] Make recommendations about what types to add to which fields, based on pre-existing data.
+- [-] Expresses interfaces for pre-existing data in a database.
+  - [-] Infer types of data for given list of getters.
+  - [ ] Split inferred types into the following groups:
+    - [ ] Mongoid Schema
+    - [ ] `json_fields :all`
+    - [ ] `json_fields :public`
+    - [ ] `json_fields :short`
+- [ ] Export interfaces directly to TypeScript in the simplest way possible (as a stopgap till we do e.g. Swagger)
+
+- [-] Annotate models with type info for fields. (In mongoid-type-dsl branch)
+- [x] Get types of Mongoid schema.
+- [ ] Analyze discrepancies between annotated types and inferred types of data.
+- [ ] Make recommendations about what types to add to which fields, based on analyses.
 - [ ] Tool to apply recommendations in an automated fashion.
-- [ ] Export interfaces, in a format like JSON Schema, so it can be used to generate TypeScript interfaces etc.
 - [ ] Add data validations to model on definition and allow checing validity of existing data.
+- [ ] Add Swagger export of types.
+- [ ] Annotate API endpoints so that Swagger type info for responses can be included in our Swagger docs.
 
 ## DSL
 

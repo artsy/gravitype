@@ -1,3 +1,5 @@
+require "parallel"
+
 module Gravitype
   class Introspection
     def initialize(model)
@@ -28,9 +30,8 @@ module Gravitype
       if models.empty?
         models = Mongoid.models.select { |model| model.try(:cached_json_field_defs) }
       end
-      models.inject({}) do |hash, model|
-        hash[model.name] = Model.new(model).introspect
-        hash
+      Parallel.map(models) do |model|
+        Model.new(model).introspect
       end
     end
 

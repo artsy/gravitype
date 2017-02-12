@@ -25,6 +25,7 @@ module Gravitype
           @visitors.each do |visitor|
             visitor.visit(document)
           end
+          print "." unless ENV["TESTING"]
         end
 
         @result = @visitors.inject({}) do |result, visitor|

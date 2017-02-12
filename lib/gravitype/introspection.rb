@@ -23,7 +23,7 @@ module Gravitype
           end
         end
         merged
-      end.values.map(&:normalize).extend(ResultSet)
+      end.values.sort.map(&:normalize).extend(ResultSet)
     end
 
     def self.introspect(*models)

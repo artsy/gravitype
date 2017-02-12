@@ -8,7 +8,7 @@ module Gravitype
         @result ||= {
           mongoid_schema: @model.fields.map do |name, field|
             Field.new(name.to_sym, Type.of(field.type))
-          end.extend(ResultSet)
+          end.sort.extend(ResultSet)
         }
       end
     end

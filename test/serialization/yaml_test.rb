@@ -17,13 +17,13 @@ module Gravitype
 Artist:
   mongoid_schema:
     _id: ObjectId!
-    names: Array!
     birthdate: Date!
+    names: Array!
 
   mongoid_data:
     _id: ObjectId!
-    names: Array!(String!)
     birthdate: Date?
+    names: Array!(String!)
 
   all_json_fields:
     artworks: Array!(Reference!("Artwork.all_json_fields"))
@@ -41,9 +41,9 @@ Artist:
 
   merged:
     _id: ObjectId!
-    names: Array!(String!)
-    birthdate: Date?
     artworks: Array!(Reference!("Artwork.all_json_fields"), Reference!("Artwork.short_json_fields"))
+    birthdate: Date?
+    names: Array!(String!)
 
 Artwork:
   mongoid_schema:
@@ -72,9 +72,9 @@ Artwork:
   merged:
     _id: ObjectId!
     artist_id: Object! | ObjectId!
+    gene: Reference!("Gene.public_json_fields")
     gene_id: Object! | ObjectId!
     title: Object! | String!
-    gene: Reference!("Gene.public_json_fields")
 
 EOS
       end

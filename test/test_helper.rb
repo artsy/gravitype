@@ -81,6 +81,7 @@ class Gene
   include Mongoid::Document
   include Mongoid::CachedJson
 
+  belongs_to :gene_family
   has_many :artworks
   field :name
   field :desc
@@ -88,11 +89,22 @@ class Gene
   json_fields({
     name: { properties: :short },
     desc: { properties: :public },
+    family: { type: :reference, definition: :gene_family }
   })
 end
 
+class GeneFamily
+  include Mongoid::Document
+  include Mongoid::CachedJson
+
+  field :name, type: String
+
+  json_fields name: {}
+end
+
 def create_art_fixtures!
-  gene = Gene.create!(name: "Painting", desc: "Made with paint.")
+  gene_family = GeneFamily.create!(name: "Physical object")
+  gene = Gene.create!(name: "Painting", desc: "Made with paint.", gene_family: gene_family)
   artist = Artist.create!(names: %w(Andy Warhol), birthdate: Date.new(1928, 1, 1))
   Artwork.create!(artist: artist, title: "Flowers", gene: gene)
   artist = Artist.create!(names: %w(Banksy))

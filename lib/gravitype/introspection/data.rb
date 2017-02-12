@@ -61,7 +61,7 @@ module Gravitype
         end
 
         def collected
-          @collected.values.map(&:normalize).extend(ResultSet)
+          @collected.values.sort.map(&:normalize).extend(ResultSet)
         end
       end
 
@@ -98,11 +98,25 @@ module Gravitype
           end
 
           def references
-            @model.cached_json_reference_defs[@scope]
+            @references ||=
+              if @model.respond_to?(:cached_json_reference_defs)
+                @model.cached_json_reference_defs[@scope]
+              else
+                {}
+              end
+          end
+
+          # TODO Alas we can’t reference embedded docs, as they would otherwise not get found with just `@model.all`
+          def reference(field)
+            if (reference = references[field])
+              if reference[:metadata] && !reference[:metadata].macro.to_s.start_with?("embed")
+                reference
+              end
+            end
           end
 
           def type_of(field, value)
-            if value && reference = references[field]
+            if reference = reference(field)
               scope = reference[:reference_properties] || (@scope == :all ? :all : :short)
               type = Type::Reference.new("#{reference[:metadata].class_name}.#{self.class.scoped_fields(scope)}")
               if reference[:metadata].macro == :has_many

@@ -113,7 +113,7 @@ module Gravitype
           :mongoid_string,
           :mongoid_array,
           :mongoid_hash,
-        ])
+        ].sort)
       end
 
       it "returns `json_fields :public`" do
@@ -121,14 +121,14 @@ module Gravitype
           :ruby_method,
           :mongoid_string,
           :mongoid_array,
-        ])
+        ].sort)
       end
 
       it "returns `json_fields :short`" do
         @introspection[:short_json_fields].map(&:name).must_equal([
           :ruby_method,
           :mongoid_string,
-        ])
+        ].sort)
       end
 
       it "retrieves the value of ruby method backed fields" do

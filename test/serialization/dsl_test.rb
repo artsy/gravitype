@@ -1,5 +1,5 @@
 require "test_helper"
-require "gravitype/formatter/dsl"
+require "gravitype/serialization/dsl"
 
 module Gravitype
   describe "to_dsl" do

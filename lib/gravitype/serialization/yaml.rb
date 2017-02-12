@@ -1,6 +1,6 @@
 require "yaml"
 require "stringio"
-require "gravitype/formatter/dsl"
+require "gravitype/serialization/dsl"
 
 module Gravitype
   module Formatter

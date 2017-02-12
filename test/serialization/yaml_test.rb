@@ -1,5 +1,5 @@
 require "test_helper"
-require "gravitype/formatter/yaml"
+require "gravitype/serialization/yaml"
 
 module Gravitype
   module Formatter

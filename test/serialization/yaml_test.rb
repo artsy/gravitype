@@ -2,7 +2,7 @@ require "test_helper"
 require "gravitype/serialization/yaml"
 
 module Gravitype
-  module Formatter
+  module Serialization
     describe YAML do
       include Type::DSL
 

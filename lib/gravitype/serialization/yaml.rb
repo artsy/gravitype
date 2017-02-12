@@ -3,7 +3,7 @@ require "stringio"
 require "gravitype/serialization/dsl"
 
 module Gravitype
-  module Formatter
+  module Serialization
     module YAML
       def self.dump(introspections, io = nil)
         output = io || StringIO.new

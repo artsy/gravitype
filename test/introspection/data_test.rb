@@ -100,44 +100,62 @@ module Gravitype
   describe "Data introspection of json_fields" do
     include Type::DSL
 
-    before do
-      TestDoc.create!
-      @introspection = Introspection::Data.new(TestDoc).introspect
+    describe "concerning immediate fields" do
+      before do
+        TestDoc.create!
+        @introspection = Introspection::Data.new(TestDoc).introspect
+      end
+
+      it "returns `json_fields :all`" do
+        @introspection[:all_json_fields].map(&:name).must_equal([
+          :ruby_method,
+          :ruby_proc,
+          :mongoid_string,
+          :mongoid_array,
+          :mongoid_hash,
+        ])
+      end
+
+      it "returns `json_fields :public`" do
+        @introspection[:public_json_fields].map(&:name).must_equal([
+          :ruby_method,
+          :mongoid_string,
+          :mongoid_array,
+        ])
+      end
+
+      it "returns `json_fields :short`" do
+        @introspection[:short_json_fields].map(&:name).must_equal([
+          :ruby_method,
+          :mongoid_string,
+        ])
+      end
+
+      it "retrieves the value of ruby method backed fields" do
+        field = @introspection[:all_json_fields][:ruby_method]
+        field.type.must_equal String!
+      end
+
+      it "retrieves the value of ruby proc backed fields" do
+        field = @introspection[:all_json_fields][:ruby_proc]
+        field.type.must_equal Symbol!
+      end
     end
 
-    it "returns `json_fields :all`" do
-      @introspection[:all_json_fields].map(&:name).must_equal([
-        :ruby_method,
-        :ruby_proc,
-        :mongoid_string,
-        :mongoid_array,
-        :mongoid_hash,
-      ])
-    end
+    describe "concerning nested models" do
+      it "uses references for nested models" do
+        create_art_fixtures!
 
-    it "returns `json_fields :public`" do
-      @introspection[:public_json_fields].map(&:name).must_equal([
-        :ruby_method,
-        :mongoid_string,
-        :mongoid_array,
-      ])
-    end
+        introspection = Introspection::Data.new(Artist).introspect
+        introspection[:all_json_fields][:artworks].type.must_equal Array!(Reference!("Artwork.all_json_fields"))
+        introspection[:public_json_fields][:artworks].type.must_equal Array!(Reference!("Artwork.short_json_fields"))
+        introspection[:short_json_fields][:artworks].type.must_equal Array!(Reference!("Artwork.short_json_fields"))
 
-    it "returns `json_fields :short`" do
-      @introspection[:short_json_fields].map(&:name).must_equal([
-        :ruby_method,
-        :mongoid_string,
-      ])
-    end
-
-    it "retrieves the value of ruby method backed fields" do
-      field = @introspection[:all_json_fields][:ruby_method]
-      field.type.must_equal String!
-    end
-
-    it "retrieves the value of ruby proc backed fields" do
-      field = @introspection[:all_json_fields][:ruby_proc]
-      field.type.must_equal Symbol!
+        introspection = Introspection::Data.new(Artwork).introspect
+        introspection[:all_json_fields][:gene].type.must_equal Reference!("Gene.public_json_fields")
+        introspection[:public_json_fields][:gene].type.must_equal Reference!("Gene.public_json_fields")
+        introspection[:short_json_fields][:gene].must_be_nil
+      end
     end
   end
 end

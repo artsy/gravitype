@@ -32,5 +32,11 @@ module Gravitype
       Set!(String?, Boolean?).normalize.must_equal expected
       Set?(String?, Boolean?).normalize.must_equal expected | null
     end
+
+    it "makes reference types available" do
+      expected = Type::Reference.new("A reference")
+      Reference!("A reference").normalize.must_equal expected
+      Reference?("A reference").normalize.must_equal expected | null
+    end
   end
 end

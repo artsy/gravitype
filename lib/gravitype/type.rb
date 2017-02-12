@@ -101,6 +101,7 @@ module Gravitype
   end
 end
 
-require "gravitype/type/union"
-require "gravitype/type/list"
 require "gravitype/type/dsl"
+require "gravitype/type/list"
+require "gravitype/type/reference"
+require "gravitype/type/union"

@@ -11,10 +11,10 @@ module Gravitype
       def initialize(*)
         super
         @visitors = [
-          Visitor::Mongoid.new,
-          Visitor::JSONFields.new(:all),
-          Visitor::JSONFields.new(:public),
-          Visitor::JSONFields.new(:short),
+          Visitor::Mongoid.new(@model),
+          Visitor::JSONFields.new(@model, :all),
+          Visitor::JSONFields.new(@model, :public),
+          Visitor::JSONFields.new(@model, :short),
         ]
       end
 
@@ -35,7 +35,8 @@ module Gravitype
       end
 
       class Visitor
-        def initialize
+        def initialize(model)
+          @model = model
           @collected = {}
         end
 
@@ -43,10 +44,14 @@ module Gravitype
           raise NotImplementedError
         end
 
+        def type_of(field, value)
+          Type.of(value)
+        end
+
         def visit(attributes)
           attributes.each do |name, value|
             name = name.to_sym
-            field = Field.new(name, Type.of(value))
+            field = Field.new(name, type_of(name, value))
             if @collected[name]
               @collected[name].merge!(field)
             else
@@ -66,8 +71,12 @@ module Gravitype
             :mongoid_data
           end
 
+          def fields
+            @fields ||= @model.fields.keys
+          end
+
           def visit(document)
-            super(document.class.fields.keys.inject({}) do |attributes, field|
+            super(fields.inject({}) do |attributes, field|
               attributes[field] = document.send(field)
               attributes
             end)
@@ -75,13 +84,34 @@ module Gravitype
         end
 
         class JSONFields < Visitor
-          def initialize(scope)
-            super()
+          def self.scoped_fields(scope)
+            "#{scope}_json_fields".to_sym
+          end
+
+          def initialize(model, scope)
+            super(model)
             @scope = scope
           end
 
           def type
-            "#{@scope}_json_fields".to_sym
+            self.class.scoped_fields(@scope)
+          end
+
+          def references
+            @model.cached_json_reference_defs[@scope]
+          end
+
+          def type_of(field, value)
+            if value && reference = references[field]
+              scope = reference[:reference_properties] || (@scope == :all ? :all : :short)
+              type = Type::Reference.new("#{reference[:metadata].class_name}.#{self.class.scoped_fields(scope)}")
+              if reference[:metadata].macro == :has_many
+                type = Type::Array.new([type])
+              end
+              type
+            else
+              super
+            end
           end
 
           def visit(document)

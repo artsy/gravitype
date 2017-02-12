@@ -14,9 +14,14 @@ module Gravitype
       Type::Union.new([Type.new(NilClass), Type.new(String)]).nullable?.must_equal true
     end
 
+    it "represents an arbitrary reference to another introspection object" do
+      type = Type::Union.new([Type::Reference.new("ref 1"), Type::Reference.new("ref 1"), Type::Reference.new("ref 2")])
+      type.must_equal Type::Union.new([Type::Reference.new("ref 1"), Type::Reference.new("ref 2")])
+    end
+
     describe "union" do
       it "automatically wraps classes as types when creating a union type" do
-        Type::Union.new([Type.new(String), Type.new(Symbol)]).must_equal Type::Union.new([String, Symbol])
+        Type::Union.new([String, Symbol]).must_equal Type::Union.new([Type.new(String), Type.new(Symbol)])
       end
 
       it "returns a union type" do

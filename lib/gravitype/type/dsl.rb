@@ -40,6 +40,14 @@ module Gravitype
       def Array?(*types)
         Array!(*types) | null
       end
+
+      def Reference!(reference)
+        Type::Reference.new(reference)
+      end
+
+      def Reference?(reference)
+        Reference!(reference) | null
+      end
     end
   end
 end

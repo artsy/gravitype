@@ -1,14 +1,19 @@
 require "test_helper"
 require "gravitype/formatter/yaml"
-require "stringio"
 
 module Gravitype
   module Formatter
     describe YAML do
       include Type::DSL
 
+      before do
+        create_art_fixtures!
+        @introspection = Introspection.introspect(Artist, Artwork)
+        @yaml = YAML.dump(@introspection)
+      end
+
       it "serializes an introspection" do
-        expected = <<-EOS
+        @yaml.must_equal <<-EOS
 Artist:
   mongoid_schema:
     _id: ObjectId!
@@ -72,15 +77,25 @@ Artwork:
     gene: Reference!("Gene.public_json_fields")
 
 EOS
+      end
 
-        create_art_fixtures!
+      it "deserializes an introspection" do
+        YAML.load(@yaml).must_equal(@introspection)
+      end
 
-        introspection = Introspection.introspect(Artist, Artwork)
-        output = StringIO.new
-        YAML.dump(introspection, output)
-        output.rewind
-
-        output.read.must_equal expected
+      it "deserializes null values" do
+        YAML.load(<<-EOS
+Artist:
+  mongoid_data:
+    names: null
+EOS
+        ).must_equal({
+          "Artist" => {
+            mongoid_data: [
+              Field.new(:names, Type.new(NilClass))
+            ]
+          }
+        })
       end
     end
   end

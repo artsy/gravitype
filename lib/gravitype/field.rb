@@ -5,7 +5,7 @@ module Gravitype
     attr_reader :name, :type
 
     def initialize(name, type)
-      @name, @type = name, type
+      @name, @type = name.to_sym, type
     end
 
     def merge!(other)
@@ -31,6 +31,14 @@ module Gravitype
 
     def <=>(other)
       @name <=> other.name
+    end
+
+    def eql?(other)
+      self == other
+    end
+
+    def hash
+      [@name, @type].hash
     end
 
     def inspect

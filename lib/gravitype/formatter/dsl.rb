@@ -25,6 +25,12 @@ module Gravitype
     end
   end
 
+  class Type::Reference
+    def nonnull_to_dsl(as_nullable)
+      "Reference#{as_nullable ? "?" : "!"}(#{type.inspect})"
+    end
+  end
+
   class Type::List
     def to_dsl(as_nullable = false)
       type = nonnull_to_dsl(as_nullable)

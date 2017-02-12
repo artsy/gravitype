@@ -31,8 +31,8 @@ module Gravitype
         models = Mongoid.models.select { |model| model.try(:cached_json_field_defs) }
       end
       Parallel.map(models) do |model|
-        Model.new(model).introspect
-      end
+        { model.name => Model.new(model).introspect }
+      end.inject({}) { |result, introspection| result.merge(introspection) }
     end
 
     # Used to extend introspection results, which are arrays, for easy access by field name.
@@ -73,7 +73,7 @@ module Gravitype
 
       def merged
         {
-          merged: Introspection.merge(schema[:mongoid_schema], data[:mongoid_data], data[:all_json_fields])
+          merged: Introspection.merge(schema[:mongoid_schema], *data.values)
         }
       end
 

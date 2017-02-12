@@ -35,6 +35,10 @@ module Gravitype
       (Regexp!).to_dsl.must_equal "Regexp!"
     end
 
+    it "formats a reference" do
+      (Reference!("A reference")).to_dsl.must_equal 'Reference!("A reference")'
+    end
+
     describe "nullability" do
       it "formats a nullable scalar" do
         (String?).to_dsl.must_equal "String?"
@@ -54,6 +58,10 @@ module Gravitype
 
       it "formats a hash" do
         (Hash?(String? => Symbol?)).to_dsl.must_equal "Hash?(String? => Symbol?)"
+      end
+
+      it "formats a reference" do
+        (Reference?("A reference")).to_dsl.must_equal 'Reference?("A reference")'
       end
     end
   end

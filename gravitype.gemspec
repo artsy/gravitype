@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Eloy Durán"]
   spec.email         = ["eloy.de.enige@gmail.com"]
 
-  spec.summary       = "Generates a JSON Schema for the types that Artsy’s Gravity exposes."
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "Typing support for Gravity, Artsy’s Core API."
+  spec.homepage      = "https://github.com/artsy/gravitype"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

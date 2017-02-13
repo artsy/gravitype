@@ -20,13 +20,14 @@ existing and incoming data.
 ## Status
 
 - [x] DSL to describe interfaces.
-- [-] Expresses interfaces for pre-existing data in a database.
+- [x] Expresses interfaces for pre-existing data in a database.
   - [x] Infer types of data for given list of getters.
   - [x] Split types into subsets: `:schema`, `:all_json_fields`, `:public_json_fields`, and `:short_json_fields`.
-  - [ ] Support `:reference` in `json_fields`
+  - [x] Support `:reference` in `json_fields`
 - [ ] Export interfaces directly to TypeScript in the simplest way possible (as a stopgap till we do e.g. Swagger)
       Will json_fields data always be exact subsets or do scopes cascade in any way?
 
+- [ ] Better support embedded models. Ideally the inferred types would be referenced from the models that embed them.
 - [-] Annotate models with type info for fields. (In mongoid-type-dsl branch)
 - [x] Get types of Mongoid schema.
 - [ ] Analyze discrepancies between annotated types and inferred types of data.

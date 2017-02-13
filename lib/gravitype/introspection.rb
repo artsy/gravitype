@@ -1,4 +1,4 @@
-require "parallel"
+require "gravitype/map_models"
 
 module Gravitype
   class Introspection
@@ -30,7 +30,7 @@ module Gravitype
       if models.empty?
         models = Mongoid.models.select { |model| model.try(:cached_json_field_defs) }
       end
-      Parallel.map(models) do |model|
+      MapModels.map(models) do |model|
         { model.name => Model.new(model).introspect }
       end.inject({}) { |result, introspection| result.merge(introspection) }
     end

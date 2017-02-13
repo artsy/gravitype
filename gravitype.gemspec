@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "mongoid"
   spec.add_runtime_dependency "mongoid-cached-json"
   spec.add_runtime_dependency "parallel"
+  spec.add_runtime_dependency "ruby-progressbar"
 
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.0"

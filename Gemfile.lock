@@ -5,6 +5,7 @@ PATH
       mongoid
       mongoid-cached-json
       parallel
+      ruby-progressbar
 
 GEM
   remote: https://rubygems.org/

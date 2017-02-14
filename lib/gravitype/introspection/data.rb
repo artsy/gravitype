@@ -1,7 +1,5 @@
 require "gravitype/introspection"
 
-require "ruby-progressbar"
-
 module Gravitype
   class Introspection
     # Collects type information from the actual data of the model.

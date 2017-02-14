@@ -1,9 +1,11 @@
-require "gravitype/map_models"
-
 module Gravitype
   class Introspection
-    def initialize(model)
-      @model = model
+    def initialize(criteria)
+      @criteria = criteria
+    end
+
+    def model
+      @criteria.all.klass
     end
 
     def introspect
@@ -30,9 +32,16 @@ module Gravitype
       if models.empty?
         models = Mongoid.models.select { |model| model.try(:cached_json_field_defs) }
       end
-      MapModels.map(models) do |model|
-        { model.name => Model.new(model).introspect }
-      end.inject({}) { |result, introspection| result.merge(introspection) }
+      Batch.map(models) do |batch|
+        [batch.model.name, batch.introspect]
+      end.inject({}) do |batch_introspections, (model_name, batch_introspection)|
+        if other = batch_introspections[model_name]
+          batch_introspections[model_name] = Batch.merge(other, batch_introspection)
+        else
+          batch_introspections[model_name] = batch_introspection
+        end
+        batch_introspections
+      end
     end
 
     # Used to extend introspection results, which are arrays, for easy access by field name.
@@ -57,32 +66,9 @@ module Gravitype
         super.extend(ResultSet)
       end
     end
-
-    class Model
-      def initialize(model)
-        @model = model
-      end
-
-      def schema
-        @schema ||= Schema.new(@model).introspect
-      end
-
-      def data
-        @data ||= Data.new(@model).introspect
-      end
-
-      def merged
-        {
-          merged: Introspection.merge(schema[:mongoid_schema], *data.values)
-        }
-      end
-
-      def introspect
-        schema.merge(data).merge(merged)
-      end
-    end
   end
 end
 
+require "gravitype/introspection/batch"
 require "gravitype/introspection/data"
 require "gravitype/introspection/schema"

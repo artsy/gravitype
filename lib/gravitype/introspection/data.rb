@@ -9,17 +9,17 @@ module Gravitype
       def initialize(*)
         super
         @visitors = [
-          Visitor::Mongoid.new(@model),
-          Visitor::JSONFields.new(@model, :all),
-          Visitor::JSONFields.new(@model, :public),
-          Visitor::JSONFields.new(@model, :short),
+          Visitor::Mongoid.new(model),
+          Visitor::JSONFields.new(model, :all),
+          Visitor::JSONFields.new(model, :public),
+          Visitor::JSONFields.new(model, :short),
         ]
       end
 
       def introspect
         return @result if @result
 
-        @model.all.each do |document|
+        @criteria.each do |document|
           @visitors.each do |visitor|
             visitor.visit(document)
           end

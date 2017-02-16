@@ -37,6 +37,22 @@ existing and incoming data.
 - [ ] Add Swagger export of types.
 - [ ] Annotate API endpoints so that Swagger type info for responses can be included in our Swagger docs.
 
+## Install
+
+Add the followig to the `Gemfile` of your Gravity checkout:
+
+```ruby
+gem "gravitype", require: false, path: "path/to/gravitype"
+```
+
+Then use the CLI tool to, for instance, dump the schema of some models:
+
+```
+$ bundle exec gravitype Artist Gene
+path/to/gravitype/schema/Artist.yaml
+path/to/gravitype/schema/Gene.yaml
+```
+
 ## DSL
 
 To specify type information, you can use the `Gravitype::Type::DSL` module.

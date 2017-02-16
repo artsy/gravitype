@@ -1,3 +1,27 @@
 #!/usr/bin/env ruby
 
+unless File.exist?("config/environment.rb")
+  $stderr.puts "Expected to be ran from the root of a Gravity checkout"
+  exit 1
+end
+
+if ARGV.empty?
+  $stderr.puts "Specify models to generate typings for."
+  exit 1
+end
+
+require File.expand_path("config/environment")
 require "gravitype"
+require "gravitype/serialization/yaml"
+
+models = ARGV.map(&:constantize)
+
+Mongoid::CachedJson::Config.disable_caching = true
+
+Gravitype::Introspection.introspect(*models).each do |model, introspections|
+  schema_path = File.expand_path("../../schema/#{model}.yaml", __FILE__)
+  puts schema_path
+  File.open(schema_path, "w") do |file|
+    Gravitype::Serialization::YAML.dump({ model => introspections }, file)
+  end
+end

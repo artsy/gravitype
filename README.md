@@ -53,6 +53,8 @@ path/to/gravitype/schema/Artist.yaml
 path/to/gravitype/schema/Gene.yaml
 ```
 
+Schema files are added to the gravitype repo, after committing them you will find them [here](schema).
+
 ## DSL
 
 To specify type information, you can use the `Gravitype::Type::DSL` module.

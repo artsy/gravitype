@@ -1,0 +1,43 @@
+ArtistInfluenceRelation:
+  mongoid_schema:
+    _id: ObjectId!
+    artist_id: Object!
+    created_at: Time!
+    gene_id: Object!
+    updated_at: Time!
+
+  mongoid_data:
+    _id: ObjectId!
+    artist_id: ObjectId!
+    created_at: Time!
+    gene_id: ObjectId!
+    updated_at: Time!
+
+  all_json_fields:
+    _id: ObjectId!
+    artist_id: ObjectId!
+    created_at: Time!
+    gene_id: ObjectId!
+    updated_at: Time!
+
+  public_json_fields:
+    _id: ObjectId!
+    artist_id: ObjectId!
+    created_at: Time!
+    gene_id: ObjectId!
+    updated_at: Time!
+
+  short_json_fields:
+    _id: ObjectId!
+    artist_id: ObjectId!
+    created_at: Time!
+    gene_id: ObjectId!
+    updated_at: Time!
+
+  merged:
+    _id: ObjectId!
+    artist_id: Object! | ObjectId!
+    created_at: Time! | Time!
+    gene_id: Object! | ObjectId!
+    updated_at: Time! | Time!
+

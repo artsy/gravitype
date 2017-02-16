@@ -1,0 +1,484 @@
+Artwork:
+  mongoid_schema:
+    _id: ObjectId!
+    _slugs: Array!
+    additional_information: String!
+    artist_ids: Array!
+    auto_tagged_at: Time!
+    auto_tags: Array!
+    availability: String!
+    availability_changed_at: Time!
+    blurb: String!
+    can_share_image: Boolean!
+    category: String!
+    collecting_institution: String!
+    comparables_count: Integer!
+    confidential_notes: String!
+    created_at: Time!
+    cultural_maker: String!
+    cultural_maker_ids: Array!
+    dates: Array!
+    default_image_id: String!
+    deleted: Boolean!
+    deleted_at: Time!
+    deleted_by_id: Object!
+    depth: String!
+    depth_cm: Float!
+    diameter: String!
+    diameter_cm: Float!
+    dimensions_string: String!
+    display_price_range: Boolean!
+    duration: String!
+    ecommerce: Boolean!
+    exhibition_history: String!
+    external_id: String!
+    feature_eligible: Boolean!
+    file_size: Integer!
+    height: String!
+    height_cm: Float!
+    iconicity: Float!
+    image_rights: String!
+    inventory_id: String!
+    literature: String!
+    location_id: Object!
+    locked_at: Time!
+    locked_until: Time!
+    manufacturer: String!
+    medium: String!
+    merchandisability: Float!
+    metric: String!
+    partner_id: Object!
+    partner_show_image_ids: Array!
+    partner_updated_at: Time!
+    price_changed_at: Time!
+    price_changed_by_id: Object!
+    price_currency: String!
+    price_hidden: Boolean!
+    price_listed: Float!
+    price_max: Float!
+    price_min: Float!
+    private: Boolean!
+    provenance: String!
+    public: Boolean!
+    publish_change_requested_at: Time!
+    publish_change_requested_by_id: Object!
+    published: Boolean!
+    published_at: Time!
+    published_changed_at: Time!
+    publisher: String!
+    relevant_auction_results: String!
+    sale_ids: Array!
+    secondary_market: Boolean!
+    series: String!
+    shippable_handling_markup_cents: Integer!
+    shippable_height: Integer!
+    shippable_length: Integer!
+    shippable_opt_in: Boolean!
+    shippable_package_type: String!
+    shippable_weight: Integer!
+    shippable_width: Integer!
+    shippable_zip_code: String!
+    signature: String!
+    tags: Array!
+    test_artwork_set_ids: Array!
+    title: String!
+    unique: Boolean!
+    updated_at: Time!
+    website: String!
+    width: String!
+    width_cm: Float!
+
+  mongoid_data:
+    _id: ObjectId!
+    _slugs: Array!(String!)
+    additional_information: String?
+    artist_ids: Array!(ObjectId!)
+    auto_tagged_at: null
+    auto_tags: Array!
+    availability: String?
+    availability_changed_at: Time?
+    blurb: String!
+    can_share_image: TrueClass! | FalseClass! | null
+    category: String?
+    collecting_institution: String?
+    comparables_count: Fixnum!
+    confidential_notes: String!
+    created_at: Time!
+    cultural_maker: String?
+    cultural_maker_ids: Array!(ObjectId!)
+    dates: Array?(Fixnum!, String!, Float!, Time!)
+    default_image_id: String?
+    deleted: FalseClass! | TrueClass!
+    deleted_at: Time?
+    deleted_by_id: ObjectId?
+    depth: String?
+    depth_cm: Float?
+    diameter: String?
+    diameter_cm: Float?
+    dimensions_string: String!
+    display_price_range: TrueClass! | FalseClass!
+    duration: String?
+    ecommerce: FalseClass! | null | TrueClass!
+    exhibition_history: String?
+    external_id: String?
+    feature_eligible: FalseClass! | TrueClass!
+    file_size: Fixnum!
+    height: String?
+    height_cm: Float?
+    iconicity: Float!
+    image_rights: String?
+    inventory_id: String!
+    literature: String?
+    location_id: ObjectId?
+    locked_at: null
+    locked_until: null
+    manufacturer: String?
+    medium: String?
+    merchandisability: Float!
+    metric: String?
+    partner_id: ObjectId?
+    partner_show_image_ids: Array!(ObjectId!)
+    partner_updated_at: Time!
+    price_changed_at: Time?
+    price_changed_by_id: ObjectId?
+    price_currency: String?
+    price_hidden: TrueClass! | FalseClass!
+    price_listed: Float?
+    price_max: Float?
+    price_min: Float?
+    private: TrueClass! | FalseClass!
+    provenance: String?
+    public: FalseClass! | TrueClass!
+    publish_change_requested_at: Time?
+    publish_change_requested_by_id: ObjectId?
+    published: FalseClass! | TrueClass!
+    published_at: Time?
+    published_changed_at: Time?
+    publisher: String?
+    relevant_auction_results: String!
+    sale_ids: Array!(ObjectId!)
+    secondary_market: FalseClass! | TrueClass!
+    series: String?
+    shippable_handling_markup_cents: Fixnum!
+    shippable_height: null
+    shippable_length: null
+    shippable_opt_in: FalseClass!
+    shippable_package_type: String!
+    shippable_weight: null
+    shippable_width: null
+    shippable_zip_code: null
+    signature: String?
+    tags: Array!(String!)
+    test_artwork_set_ids: Array!
+    title: String?
+    unique: FalseClass! | null | TrueClass!
+    updated_at: Time!
+    website: String?
+    width: String?
+    width_cm: Float?
+
+  all_json_fields:
+    _id: ObjectId!
+    acquireable: FalseClass!
+    additional_information: String!
+    artist: Hash?(Symbol! => Array!(Symbol!, String!) | Hash!(String! => String!) | ObjectId! | String! | TrueClass! | null | FalseClass! | Fixnum!)
+    artists: Array!(Hash!(Symbol! => Array!(Symbol!, String!) | Hash!(String! => String!) | ObjectId! | String! | TrueClass! | null | FalseClass! | Fixnum!))
+    availability: String?
+    blurb: String!
+    can_share: FalseClass! | TrueClass!
+    can_share_image: TrueClass! | FalseClass!
+    category: String?
+    collecting_institution: String!
+    comparables_count: Fixnum!
+    confidential_notes: String!
+    created_at: String!
+    cultural_maker: String?
+    cultural_makers: Array!
+    date: String!
+    dates: Array?(Fixnum!, String!, Float!, Time!)
+    default_image_id: String?
+    deleted: FalseClass! | TrueClass!
+    deleted_at: String?
+    deleted_by: Reference!("User.short_json_fields")
+    depth: String?
+    depth_cm: Float?
+    diameter: String?
+    diameter_cm: Float?
+    dimensions: Hash!(String! => String?)
+    dimensions_string: String!
+    display: String!
+    display_price_currency: String!
+    display_price_range: TrueClass! | FalseClass!
+    duration: String?
+    ecommerce: FalseClass! | null | TrueClass!
+    edition_sets: Array!(Hash!(Symbol! => Array!(String!, null) | Hash!(Symbol! | String! => Array!(Hash!, String!) | Hash!(String! => String! | TrueClass! | Time!) | null | ObjectId! | String! | FalseClass! | TrueClass! | Fixnum! | Float!) | null | ObjectId! | String! | TrueClass! | FalseClass! | Float! | Fixnum!))
+    edition_sets_count: Fixnum!
+    exhibition_history: String!
+    external_id: String?
+    feature_eligible: FalseClass! | TrueClass!
+    flags: Array!(Hash!(Symbol! => null | ObjectId! | String!))
+    forsale: TrueClass! | FalseClass! | null
+    gene_count: Fixnum!
+    height: String?
+    height_cm: Float?
+    id: String!
+    image_rights: String!
+    images: Array!(Hash!(Symbol! => Array!(Symbol!) | Hash!(String! => String!) | ObjectId! | Fixnum! | Float! | FalseClass! | TrueClass! | String! | null))
+    inquireable: TrueClass! | FalseClass!
+    internal_display_price: String?
+    inventory: Hash?(Symbol! => Fixnum! | FalseClass! | TrueClass! | null)
+    inventory_id: String!
+    literature: String!
+    location: Reference!("PartnerLocation.short_json_fields")
+    manufacturer: String?
+    medium: String?
+    metric: String?
+    partner: Reference!("Partner.all_json_fields")
+    partner_gene_count: Fixnum!
+    price: String!
+    price_changed_at: String?
+    price_changed_by: Reference!("User.short_json_fields")
+    price_currency: String?
+    price_hidden: TrueClass! | FalseClass!
+    price_listed: Float?
+    price_max: Float?
+    price_min: Float?
+    private: TrueClass! | FalseClass!
+    provenance: String!
+    publish_change_requested_at: String?
+    publish_change_requested_by: Reference!("User.short_json_fields")
+    published: FalseClass! | TrueClass!
+    published_at: String?
+    published_changed_at: String?
+    publisher: String?
+    relevant_auction_results: String!
+    sale_ids: Array!(ObjectId!)
+    sale_message: String?
+    secondary_market: FalseClass! | TrueClass!
+    series: String?
+    signature: String!
+    sold: FalseClass! | TrueClass! | null
+    tags: Array!(String!)
+    title: String?
+    unique: FalseClass! | null | TrueClass!
+    website: String?
+    width: String?
+    width_cm: Float?
+
+  public_json_fields:
+    _id: ObjectId!
+    acquireable: FalseClass!
+    additional_information: String!
+    artist: Hash?(Symbol! => Array!(Symbol!) | Hash!(String! => String!) | ObjectId! | String! | TrueClass! | FalseClass! | null | Fixnum!)
+    artists: Array!(Hash!(Symbol! => Array!(Symbol!) | Hash!(String! => String!) | ObjectId! | String! | TrueClass! | FalseClass! | null | Fixnum!))
+    availability: String?
+    blurb: String!
+    can_share: FalseClass! | TrueClass!
+    can_share_image: TrueClass! | FalseClass!
+    category: String?
+    collecting_institution: String!
+    comparables_count: Fixnum!
+    cultural_maker: String?
+    cultural_makers: Array!
+    date: String!
+    default_image_id: String?
+    deleted_at: String?
+    depth: String?
+    depth_cm: Float?
+    diameter: String?
+    diameter_cm: Float?
+    dimensions: Hash!(String! => String?)
+    display: String!
+    duration: String?
+    ecommerce: FalseClass! | null | TrueClass!
+    edition_sets: Array!(Hash!(Symbol! => Hash!(String! => String?) | ObjectId! | TrueClass! | FalseClass! | String! | null))
+    edition_sets_count: Fixnum!
+    exhibition_history: String!
+    feature_eligible: FalseClass! | TrueClass!
+    forsale: TrueClass! | FalseClass! | null
+    height: String?
+    height_cm: Float?
+    id: String!
+    image_rights: String!
+    images: Array!(Hash!(Symbol! => Array!(Symbol!) | Hash!(String! => String!) | ObjectId! | Fixnum! | Float! | FalseClass! | TrueClass! | String! | null))
+    inquireable: TrueClass! | FalseClass!
+    literature: String!
+    manufacturer: String?
+    medium: String?
+    metric: String?
+    partner: Reference!("Partner.short_json_fields")
+    price: String!
+    price_currency: String?
+    price_hidden: TrueClass! | FalseClass!
+    private: TrueClass! | FalseClass!
+    provenance: String!
+    published: FalseClass! | TrueClass!
+    published_at: String?
+    publisher: String?
+    relevant_auction_results: String!
+    sale_ids: Array!(ObjectId!)
+    sale_message: String?
+    series: String?
+    signature: String!
+    sold: FalseClass! | TrueClass! | null
+    tags: Array!(String!)
+    title: String?
+    unique: FalseClass! | null | TrueClass!
+    website: String?
+    width: String?
+    width_cm: Float?
+
+  short_json_fields:
+    _id: ObjectId!
+    acquireable: FalseClass!
+    artist: Hash?(Symbol! => Array!(Symbol!) | Hash!(String! => String!) | ObjectId! | String! | TrueClass! | FalseClass! | null | Fixnum!)
+    artists: Array!(Hash!(Symbol! => Array!(Symbol!) | Hash!(String! => String!) | ObjectId! | String! | TrueClass! | FalseClass! | null | Fixnum!))
+    availability: String?
+    blurb: String!
+    can_share: FalseClass! | TrueClass!
+    can_share_image: TrueClass! | FalseClass!
+    category: String?
+    collecting_institution: String!
+    cultural_maker: String?
+    cultural_makers: Array!
+    date: String!
+    deleted_at: String?
+    dimensions: Hash!(String! => String?)
+    display: String!
+    ecommerce: FalseClass! | null | TrueClass!
+    edition_sets_count: Fixnum!
+    forsale: TrueClass! | FalseClass! | null
+    id: String!
+    images: Array!(Hash!(Symbol! => Array!(Symbol!) | Hash!(String! => String!) | ObjectId! | Fixnum! | Float! | FalseClass! | TrueClass! | String! | null))
+    inquireable: TrueClass! | FalseClass!
+    manufacturer: String?
+    medium: String?
+    partner: Reference!("Partner.short_json_fields")
+    price: String!
+    price_currency: String?
+    private: TrueClass! | FalseClass!
+    published: FalseClass! | TrueClass!
+    published_at: String?
+    sale_ids: Array!(ObjectId!)
+    sale_message: String?
+    sold: FalseClass! | TrueClass! | null
+    title: String?
+    unique: FalseClass! | null | TrueClass!
+
+  merged:
+    _id: ObjectId!
+    _slugs: Array!(String!)
+    acquireable: FalseClass!
+    additional_information: String?
+    artist: Hash?(Symbol! => Array!(Symbol!, String!) | Hash!(String! => String!) | ObjectId! | String! | TrueClass! | null | FalseClass! | Fixnum!)
+    artist_ids: Array!(ObjectId!)
+    artists: Array!(Hash!(Symbol! => Array!(Symbol!, String!) | Hash!(String! => String!) | ObjectId! | String! | TrueClass! | null | FalseClass! | Fixnum!))
+    auto_tagged_at: Time?
+    auto_tags: Array!
+    availability: String?
+    availability_changed_at: null | Time! | Time!
+    blurb: String!
+    can_share: FalseClass! | TrueClass!
+    can_share_image: TrueClass! | FalseClass! | Boolean! | null
+    category: String?
+    collecting_institution: String?
+    comparables_count: Integer! | Fixnum!
+    confidential_notes: String!
+    created_at: Time! | Time! | String!
+    cultural_maker: String?
+    cultural_maker_ids: Array!(ObjectId!)
+    cultural_makers: Array!
+    date: String!
+    dates: Array?(Fixnum!, String!, Float!, Time!)
+    default_image_id: String?
+    deleted: FalseClass! | TrueClass! | Boolean!
+    deleted_at: null | Time! | Time! | String!
+    deleted_by: Reference!("User.short_json_fields")
+    deleted_by_id: null | ObjectId! | Object!
+    depth: String?
+    depth_cm: Float?
+    diameter: String?
+    diameter_cm: Float?
+    dimensions: Hash!(String! => String?)
+    dimensions_string: String!
+    display: String!
+    display_price_currency: String!
+    display_price_range: TrueClass! | FalseClass! | Boolean!
+    duration: String?
+    ecommerce: FalseClass! | null | Boolean! | TrueClass!
+    edition_sets: Array!(Hash!(Symbol! => Array!(String!, null) | Hash!(Symbol! | String! => Array!(Hash!, String!) | Hash!(String! => String! | TrueClass! | Time!) | null | ObjectId! | String! | FalseClass! | TrueClass! | Fixnum! | Float!) | null | ObjectId! | String! | TrueClass! | FalseClass! | Float! | Fixnum!))
+    edition_sets_count: Fixnum!
+    exhibition_history: String?
+    external_id: String?
+    feature_eligible: FalseClass! | TrueClass! | Boolean!
+    file_size: Integer! | Fixnum!
+    flags: Array!(Hash!(Symbol! => null | ObjectId! | String!))
+    forsale: TrueClass! | FalseClass! | null
+    gene_count: Fixnum!
+    height: String?
+    height_cm: Float?
+    iconicity: Float!
+    id: String!
+    image_rights: String?
+    images: Array!(Hash!(Symbol! => Array!(Symbol!) | Hash!(String! => String!) | ObjectId! | Fixnum! | Float! | FalseClass! | TrueClass! | String! | null))
+    inquireable: TrueClass! | FalseClass!
+    internal_display_price: String?
+    inventory: Hash?(Symbol! => Fixnum! | FalseClass! | TrueClass! | null)
+    inventory_id: String!
+    literature: String?
+    location: Reference!("PartnerLocation.short_json_fields")
+    location_id: Object! | null | ObjectId!
+    locked_at: Time?
+    locked_until: Time?
+    manufacturer: String?
+    medium: String?
+    merchandisability: Float!
+    metric: String?
+    partner: Reference!("Partner.all_json_fields") | Reference!("Partner.short_json_fields")
+    partner_gene_count: Fixnum!
+    partner_id: ObjectId! | null | Object!
+    partner_show_image_ids: Array!(ObjectId!)
+    partner_updated_at: Time! | Time!
+    price: String!
+    price_changed_at: Time! | null | Time! | String!
+    price_changed_by: Reference!("User.short_json_fields")
+    price_changed_by_id: null | ObjectId! | Object!
+    price_currency: String?
+    price_hidden: TrueClass! | FalseClass! | Boolean!
+    price_listed: Float?
+    price_max: Float?
+    price_min: Float?
+    private: TrueClass! | FalseClass! | Boolean!
+    provenance: String?
+    public: FalseClass! | TrueClass! | Boolean!
+    publish_change_requested_at: null | Time! | Time! | String!
+    publish_change_requested_by: Reference!("User.short_json_fields")
+    publish_change_requested_by_id: null | ObjectId! | Object!
+    published: FalseClass! | TrueClass! | Boolean!
+    published_at: null | Time! | Time! | String!
+    published_changed_at: null | Time! | Time! | String!
+    publisher: String?
+    relevant_auction_results: String!
+    sale_ids: Array!(ObjectId!)
+    sale_message: String?
+    secondary_market: FalseClass! | TrueClass! | Boolean!
+    series: String?
+    shippable_handling_markup_cents: Integer! | Fixnum!
+    shippable_height: Integer?
+    shippable_length: Integer?
+    shippable_opt_in: Boolean! | FalseClass!
+    shippable_package_type: String!
+    shippable_weight: Integer?
+    shippable_width: Integer?
+    shippable_zip_code: String?
+    signature: String?
+    sold: FalseClass! | TrueClass! | null
+    tags: Array!(String!)
+    test_artwork_set_ids: Array!
+    title: String?
+    unique: FalseClass! | null | Boolean! | TrueClass!
+    updated_at: Time! | Time!
+    website: String?
+    width: String?
+    width_cm: Float?
+

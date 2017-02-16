@@ -1,0 +1,151 @@
+Gene:
+  mongoid_schema:
+    _id: ObjectId!
+    _slugs: Array!
+    additional_search_terms: Array!
+    automated: Boolean!
+    browseable: Boolean!
+    counts: Hash!
+    created_at: Time!
+    description: String!
+    display_name: String!
+    examples: String!
+    follow_count: Integer!
+    gemini_token: String!
+    gemini_token_updated_at: Time!
+    gene_family_id: Object!
+    gene_type_id: Object!
+    image_urls: Hash!
+    name: String!
+    notes: String!
+    partner_gene_category_ids: Array!
+    published: Boolean!
+    suggested: Boolean!
+    tile_base_url: String!
+    updated_at: Time!
+
+  mongoid_data:
+    _id: ObjectId!
+    _slugs: Array!(String!)
+    additional_search_terms: Array!(String!)
+    automated: TrueClass! | FalseClass!
+    browseable: FalseClass! | TrueClass!
+    counts: Hash!(String! => Fixnum!)
+    created_at: Time?
+    description: String!
+    display_name: String?
+    examples: String!
+    follow_count: Fixnum!
+    gemini_token: String?
+    gemini_token_updated_at: Time?
+    gene_family_id: ObjectId?
+    gene_type_id: ObjectId?
+    image_urls: Hash!(String! => String!)
+    name: String!
+    notes: String!
+    partner_gene_category_ids: Array!(ObjectId!)
+    published: FalseClass! | TrueClass!
+    suggested: FalseClass! | TrueClass!
+    tile_base_url: null
+    updated_at: Time!
+
+  all_json_fields:
+    _id: ObjectId!
+    additional_search_terms: Array!(String!)
+    automated: TrueClass! | FalseClass!
+    automation_rules: Array!(Hash!(Symbol! => Array!(Symbol!) | ObjectId! | String!))
+    browseable: FalseClass! | TrueClass!
+    counts: Hash!(String! => Fixnum!)
+    created_at: String?
+    description: String!
+    display_name: String?
+    examples: String!
+    family: Reference!("GeneFamily.public_json_fields")
+    follow_count: Fixnum!
+    id: String?
+    image_url: String?
+    image_urls: Hash!(String! => String!)
+    image_versions: Array!(Symbol!)
+    influential_artist: null
+    influential_gene: null
+    name: String!
+    notes: String!
+    original_height: Fixnum?
+    original_width: Fixnum?
+    partner_gene_categories: Reference!("PartnerGeneCategory.all_json_fields")
+    published: FalseClass! | TrueClass!
+    type: Reference!("GeneType.public_json_fields")
+
+  public_json_fields:
+    _id: ObjectId!
+    browseable: FalseClass! | TrueClass!
+    counts: Hash!(String! => Fixnum!)
+    created_at: String?
+    description: String!
+    display_name: String?
+    family: Reference!("GeneFamily.public_json_fields")
+    follow_count: Fixnum!
+    id: String?
+    image_url: String?
+    image_urls: Hash!(String! => String!)
+    image_versions: Array!(Symbol!)
+    influential_artist: null
+    influential_gene: null
+    name: String!
+    original_height: Fixnum?
+    original_width: Fixnum?
+    published: FalseClass! | TrueClass!
+    type: Reference!("GeneType.public_json_fields")
+
+  short_json_fields:
+    _id: ObjectId!
+    browseable: FalseClass! | TrueClass!
+    counts: Hash!(String! => Fixnum!)
+    created_at: String?
+    display_name: String?
+    family: Reference!("GeneFamily.public_json_fields")
+    id: String?
+    image_url: String?
+    image_urls: Hash!(String! => String!)
+    image_versions: Array!(Symbol!)
+    name: String!
+    original_height: Fixnum?
+    original_width: Fixnum?
+    published: FalseClass! | TrueClass!
+
+  merged:
+    _id: ObjectId!
+    _slugs: Array!(String!)
+    additional_search_terms: Array!(String!)
+    automated: TrueClass! | FalseClass! | Boolean!
+    automation_rules: Array!(Hash!(Symbol! => Array!(Symbol!) | ObjectId! | String!))
+    browseable: FalseClass! | TrueClass! | Boolean!
+    counts: Hash!(String! => Fixnum!)
+    created_at: null | Time! | Time! | String!
+    description: String!
+    display_name: String?
+    examples: String!
+    family: Reference!("GeneFamily.public_json_fields")
+    follow_count: Integer! | Fixnum!
+    gemini_token: String?
+    gemini_token_updated_at: null | Time! | Time!
+    gene_family_id: null | ObjectId! | Object!
+    gene_type_id: Object! | ObjectId! | null
+    id: String?
+    image_url: String?
+    image_urls: Hash!(String! => String!)
+    image_versions: Array!(Symbol!)
+    influential_artist: null
+    influential_gene: null
+    name: String!
+    notes: String!
+    original_height: Fixnum?
+    original_width: Fixnum?
+    partner_gene_categories: Reference!("PartnerGeneCategory.all_json_fields")
+    partner_gene_category_ids: Array!(ObjectId!)
+    published: FalseClass! | TrueClass! | Boolean!
+    suggested: FalseClass! | TrueClass! | Boolean!
+    tile_base_url: String?
+    type: Reference!("GeneType.public_json_fields")
+    updated_at: Time! | Time!
+

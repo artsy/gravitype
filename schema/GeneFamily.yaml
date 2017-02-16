@@ -1,0 +1,33 @@
+GeneFamily:
+  mongoid_schema:
+    _id: ObjectId!
+    created_at: Time!
+    name: String!
+    updated_at: Time!
+
+  mongoid_data:
+    _id: ObjectId!
+    created_at: Time!
+    name: String!
+    updated_at: Time!
+
+  all_json_fields:
+    _id: ObjectId!
+    genes: Array!(Reference!("Gene.all_json_fields"))
+    name: String!
+
+  public_json_fields:
+    _id: ObjectId!
+    name: String!
+
+  short_json_fields:
+    _id: ObjectId!
+    name: String!
+
+  merged:
+    _id: ObjectId!
+    created_at: Time! | Time!
+    genes: Array!(Reference!("Gene.all_json_fields"))
+    name: String!
+    updated_at: Time! | Time!
+

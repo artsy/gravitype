@@ -1,0 +1,337 @@
+Partner:
+  mongoid_schema:
+    _id: ObjectId!
+    _slugs: Array!
+    _type: String!
+    admin_id: Object!
+    alternate_names: Array!
+    artist_documents_count: Integer!
+    artists_count: Integer!
+    artsy_collects_sales_tax: Boolean!
+    artworks_count: Integer!
+    artworks_file_size: Integer!
+    billing_day: Integer!
+    billing_location_id: Object!
+    charge_sales_tax: Boolean!
+    claimed: Boolean!
+    commission_rate: Float!
+    contract_type: String!
+    created_at: Time!
+    criteo_eligible: Boolean!
+    current_displayable_shows_count: Integer!
+    daily_digest_sent_at: Time!
+    default_credit_card_id: Object!
+    directly_contactable: Boolean!
+    display_artists_section: Boolean!
+    display_name: String!
+    display_works_section: Boolean!
+    displayable_shows_count: Integer!
+    documents_file_size: Integer!
+    eligible_artworks_count: Integer!
+    eligible_for_carousel: Boolean!
+    eligible_for_listing: Boolean!
+    eligible_for_primary_bucket: Boolean!
+    eligible_for_secondary_bucket: Boolean!
+    email: String!
+    founding_partner: Boolean!
+    given_name: String!
+    has_full_profile: Boolean!
+    has_limited_partner_tools_access: Boolean!
+    outreach_admin_id: Object!
+    partner_artists_count: Integer!
+    partner_category_ids: Array!
+    partner_contacts_count: Integer!
+    partner_flags: Hash!
+    partner_locations_count: Integer!
+    partner_show_documents_count: Integer!
+    pre_qualify: Boolean!
+    profile_artists_layout: String!
+    profile_banner_display: String!
+    published_at: Time!
+    published_for_sale_artworks_count: Integer!
+    published_not_for_sale_artworks_count: Integer!
+    referral_contact_id: Object!
+    region: String!
+    relative_size: Integer!
+    sale_conditions_url: String!
+    shipping_note: String!
+    short_name: String!
+    shows_count: Integer!
+    sortable_id: String!
+    sortable_name: String!
+    subscription_state: String!
+    subscription_version_upgraded: Boolean!
+    updated_at: Time!
+    website: String!
+
+  mongoid_data:
+    _id: ObjectId!
+    _slugs: Array!(String!)
+    _type: String!
+    admin_id: ObjectId?
+    alternate_names: Array?(String!)
+    artist_documents_count: Fixnum!
+    artists_count: Fixnum!
+    artsy_collects_sales_tax: TrueClass! | FalseClass!
+    artworks_count: Fixnum!
+    artworks_file_size: Fixnum!
+    billing_day: Fixnum!
+    billing_location_id: ObjectId?
+    charge_sales_tax: FalseClass!
+    claimed: FalseClass! | TrueClass!
+    commission_rate: Float?
+    contract_type: String!
+    created_at: Time!
+    criteo_eligible: FalseClass! | TrueClass!
+    current_displayable_shows_count: Fixnum!
+    daily_digest_sent_at: Time?
+    default_credit_card_id: ObjectId?
+    directly_contactable: TrueClass! | FalseClass!
+    display_artists_section: TrueClass! | FalseClass!
+    display_name: String?
+    display_works_section: TrueClass! | FalseClass!
+    displayable_shows_count: Fixnum!
+    documents_file_size: Fixnum!
+    eligible_artworks_count: Fixnum!
+    eligible_for_carousel: FalseClass! | TrueClass! | null
+    eligible_for_listing: FalseClass! | TrueClass!
+    eligible_for_primary_bucket: FalseClass! | TrueClass!
+    eligible_for_secondary_bucket: FalseClass! | TrueClass! | null
+    email: String!
+    founding_partner: TrueClass! | FalseClass!
+    given_name: String!
+    has_full_profile: FalseClass! | TrueClass!
+    has_limited_partner_tools_access: TrueClass! | FalseClass!
+    outreach_admin_id: ObjectId?
+    partner_artists_count: Fixnum!
+    partner_category_ids: Array!(ObjectId!)
+    partner_contacts_count: Fixnum!
+    partner_flags: Hash!(String! => String! | Time! | TrueClass!)
+    partner_locations_count: Fixnum!
+    partner_show_documents_count: Fixnum!
+    pre_qualify: FalseClass! | TrueClass!
+    profile_artists_layout: String?
+    profile_banner_display: String?
+    published_at: Time?
+    published_for_sale_artworks_count: Fixnum!
+    published_not_for_sale_artworks_count: Fixnum!
+    referral_contact_id: ObjectId?
+    region: String?
+    relative_size: Fixnum?
+    sale_conditions_url: String?
+    shipping_note: String?
+    short_name: String?
+    shows_count: Fixnum!
+    sortable_id: String!
+    sortable_name: String?
+    subscription_state: String?
+    subscription_version_upgraded: FalseClass! | TrueClass!
+    updated_at: Time!
+    website: String!
+
+  all_json_fields:
+    _id: ObjectId!
+    admin: Reference!("User.short_json_fields")
+    alternate_names: Array?(String!)
+    artist_documents_count: Fixnum!
+    artists_count: Fixnum!
+    artsy_collects_sales_tax: TrueClass! | FalseClass!
+    artworks_count: Fixnum!
+    billing_location_id: ObjectId?
+    can_share_artworks: TrueClass!
+    charge_sales_tax: FalseClass!
+    claimed: FalseClass! | TrueClass!
+    commission_rate: Float?
+    contract_type: String!
+    criteo_eligible: FalseClass! | TrueClass!
+    current_displayable_shows_count: Fixnum!
+    default_credit_card_id: ObjectId?
+    default_profile_id: null
+    default_profile_public: null
+    directly_contactable: TrueClass! | FalseClass!
+    display_artists_section: TrueClass! | FalseClass!
+    display_name: String?
+    display_works_section: TrueClass! | FalseClass!
+    displayable_shows_count: Fixnum!
+    effective_commission_rate: Float!
+    eligible_artworks_count: Fixnum!
+    email: String!
+    founding_partner: TrueClass! | FalseClass!
+    given_name: String!
+    has_fair_partnership: TrueClass! | FalseClass!
+    has_full_profile: FalseClass! | TrueClass!
+    has_limited_fair_partnership: FalseClass!
+    has_limited_partner_tools_access: TrueClass! | FalseClass!
+    id: String!
+    max_commercial_category_limit: Fixnum!
+    merchant_account: Reference!("StripeAccount.all_json_fields")
+    name: String!
+    outreach_admin: Reference!("User.short_json_fields")
+    partner_artists_count: Fixnum!
+    partner_categories: Reference!("PartnerCategory.all_json_fields")
+    partner_contacts_count: Fixnum!
+    partner_flags: Hash!(String! => String! | Time! | TrueClass!)
+    partner_locations_count: Fixnum!
+    partner_show_documents_count: Fixnum!
+    pre_qualify: FalseClass! | TrueClass!
+    profile_artists_layout: String?
+    profile_banner_display: String?
+    profile_layout: String!
+    published_for_sale_artworks_count: Fixnum!
+    published_not_for_sale_artworks_count: Fixnum!
+    referral_contact: Reference!("User.short_json_fields")
+    region: String?
+    relative_size: Fixnum?
+    short_name: String?
+    show_promoted: FalseClass! | TrueClass!
+    shows_count: Fixnum!
+    sortable_id: String!
+    sortable_name: String?
+    subscription_plans_names: Array!
+    subscription_state: String?
+    subscription_version_upgraded: FalseClass! | TrueClass!
+    type: String!
+    website: String!
+
+  public_json_fields:
+    _id: ObjectId!
+    admin: Reference!("User.short_json_fields")
+    artist_documents_count: Fixnum!
+    artists_count: Fixnum!
+    artworks_count: Fixnum!
+    claimed: FalseClass! | TrueClass!
+    current_displayable_shows_count: Fixnum!
+    default_profile_id: null
+    default_profile_public: null
+    directly_contactable: TrueClass! | FalseClass!
+    display_artists_section: TrueClass! | FalseClass!
+    display_works_section: TrueClass! | FalseClass!
+    displayable_shows_count: Fixnum!
+    eligible_artworks_count: Fixnum!
+    email: String!
+    has_fair_partnership: TrueClass! | FalseClass!
+    has_full_profile: FalseClass! | TrueClass!
+    has_limited_fair_partnership: FalseClass!
+    id: String!
+    name: String!
+    partner_artists_count: Fixnum!
+    partner_categories: Reference!("PartnerCategory.short_json_fields")
+    partner_show_documents_count: Fixnum!
+    pre_qualify: FalseClass! | TrueClass!
+    profile_artists_layout: String?
+    profile_banner_display: String?
+    profile_layout: String!
+    published_for_sale_artworks_count: Fixnum!
+    published_not_for_sale_artworks_count: Fixnum!
+    region: String?
+    short_name: String?
+    show_promoted: FalseClass! | TrueClass!
+    shows_count: Fixnum!
+    sortable_id: String!
+    type: String!
+    website: String!
+
+  short_json_fields:
+    _id: ObjectId!
+    default_profile_id: null
+    default_profile_public: null
+    display_artists_section: TrueClass! | FalseClass!
+    display_works_section: TrueClass! | FalseClass!
+    has_fair_partnership: TrueClass! | FalseClass!
+    has_full_profile: FalseClass! | TrueClass!
+    has_limited_fair_partnership: FalseClass!
+    id: String!
+    name: String!
+    partner_categories: Reference!("PartnerCategory.short_json_fields")
+    pre_qualify: FalseClass! | TrueClass!
+    profile_artists_layout: String?
+    profile_banner_display: String?
+    profile_layout: String!
+    short_name: String?
+    sortable_id: String!
+    type: String!
+    website: String!
+
+  merged:
+    _id: ObjectId!
+    _slugs: Array!(String!)
+    _type: String!
+    admin: Reference!("User.short_json_fields")
+    admin_id: ObjectId! | null | Object!
+    alternate_names: Array?(String!)
+    artist_documents_count: Integer! | Fixnum!
+    artists_count: Integer! | Fixnum!
+    artsy_collects_sales_tax: TrueClass! | FalseClass! | Boolean!
+    artworks_count: Integer! | Fixnum!
+    artworks_file_size: Integer! | Fixnum!
+    billing_day: Integer! | Fixnum!
+    billing_location_id: ObjectId! | null | Object!
+    can_share_artworks: TrueClass!
+    charge_sales_tax: Boolean! | FalseClass!
+    claimed: FalseClass! | TrueClass! | Boolean!
+    commission_rate: Float?
+    contract_type: String!
+    created_at: Time! | Time!
+    criteo_eligible: FalseClass! | TrueClass! | Boolean!
+    current_displayable_shows_count: Integer! | Fixnum!
+    daily_digest_sent_at: Time! | null | Time!
+    default_credit_card_id: null | ObjectId! | Object!
+    default_profile_id: null
+    default_profile_public: null
+    directly_contactable: TrueClass! | FalseClass! | Boolean!
+    display_artists_section: TrueClass! | FalseClass! | Boolean!
+    display_name: String?
+    display_works_section: TrueClass! | FalseClass! | Boolean!
+    displayable_shows_count: Integer! | Fixnum!
+    documents_file_size: Integer! | Fixnum!
+    effective_commission_rate: Float!
+    eligible_artworks_count: Integer! | Fixnum!
+    eligible_for_carousel: FalseClass! | TrueClass! | Boolean! | null
+    eligible_for_listing: FalseClass! | TrueClass! | Boolean!
+    eligible_for_primary_bucket: FalseClass! | TrueClass! | Boolean!
+    eligible_for_secondary_bucket: FalseClass! | TrueClass! | Boolean! | null
+    email: String!
+    founding_partner: TrueClass! | FalseClass! | Boolean!
+    given_name: String!
+    has_fair_partnership: TrueClass! | FalseClass!
+    has_full_profile: FalseClass! | TrueClass! | Boolean!
+    has_limited_fair_partnership: FalseClass!
+    has_limited_partner_tools_access: TrueClass! | FalseClass! | Boolean!
+    id: String!
+    max_commercial_category_limit: Fixnum!
+    merchant_account: Reference!("StripeAccount.all_json_fields")
+    name: String!
+    outreach_admin: Reference!("User.short_json_fields")
+    outreach_admin_id: null | ObjectId! | Object!
+    partner_artists_count: Integer! | Fixnum!
+    partner_categories: Reference!("PartnerCategory.all_json_fields") | Reference!("PartnerCategory.short_json_fields")
+    partner_category_ids: Array!(ObjectId!)
+    partner_contacts_count: Integer! | Fixnum!
+    partner_flags: Hash!(String! => String! | Time! | TrueClass!)
+    partner_locations_count: Integer! | Fixnum!
+    partner_show_documents_count: Integer! | Fixnum!
+    pre_qualify: FalseClass! | TrueClass! | Boolean!
+    profile_artists_layout: String?
+    profile_banner_display: String?
+    profile_layout: String!
+    published_at: Time! | null | Time!
+    published_for_sale_artworks_count: Integer! | Fixnum!
+    published_not_for_sale_artworks_count: Integer! | Fixnum!
+    referral_contact: Reference!("User.short_json_fields")
+    referral_contact_id: null | ObjectId! | Object!
+    region: String?
+    relative_size: Integer! | Fixnum! | null
+    sale_conditions_url: String?
+    shipping_note: String?
+    short_name: String?
+    show_promoted: FalseClass! | TrueClass!
+    shows_count: Integer! | Fixnum!
+    sortable_id: String!
+    sortable_name: String?
+    subscription_plans_names: Array!
+    subscription_state: String?
+    subscription_version_upgraded: FalseClass! | TrueClass! | Boolean!
+    type: String!
+    updated_at: Time! | Time!
+    website: String!
+

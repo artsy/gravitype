@@ -1,0 +1,255 @@
+Artist:
+  mongoid_schema:
+    _id: ObjectId!
+    _slugs: Array!
+    active_auction_lots_count: Integer!
+    alternate_names: Array!
+    artist_location_ids: Array!
+    artworks_count: Integer!
+    awards: String!
+    biography: String!
+    birthday: String!
+    blurb: String!
+    career_stage: Float!
+    collections: String!
+    consignable: Boolean!
+    created_at: Time!
+    deathday: String!
+    display_name: String!
+    displayable_partner_shows_count: Integer!
+    education: String!
+    exclude_from_criteo: Boolean!
+    first: String!
+    follow_count: Integer!
+    forsale_artworks_count: Integer!
+    gemini_token: String!
+    gemini_token_updated_at: Time!
+    gender: String!
+    groupexhibitions: String!
+    hide_auction_link: Boolean!
+    hometown: String!
+    image_rights: String!
+    image_urls: Hash!
+    last: String!
+    location: String!
+    middle: String!
+    nationality: String!
+    partner_show_image_ids: Array!
+    partner_shows_count: Integer!
+    public: Boolean!
+    public_artworks_count: Integer!
+    publications: String!
+    published_artworks_count: Integer!
+    published_at: Time!
+    soloexhibitions: String!
+    sortable_id: String!
+    statement: String!
+    tile_base_url: String!
+    trending: Float!
+    updated_at: Time!
+
+  mongoid_data:
+    _id: ObjectId!
+    _slugs: Array!(String!)
+    active_auction_lots_count: Fixnum!
+    alternate_names: Array?(String!)
+    artist_location_ids: Array!(ObjectId!)
+    artworks_count: Fixnum!
+    awards: String?
+    biography: String?
+    birthday: String?
+    blurb: String?
+    career_stage: Float!
+    collections: String?
+    consignable: FalseClass! | TrueClass!
+    created_at: Time!
+    deathday: String?
+    display_name: String?
+    displayable_partner_shows_count: Fixnum!
+    education: String?
+    exclude_from_criteo: FalseClass!
+    first: String?
+    follow_count: Fixnum!
+    forsale_artworks_count: Fixnum!
+    gemini_token: String?
+    gemini_token_updated_at: Time?
+    gender: String?
+    groupexhibitions: String?
+    hide_auction_link: FalseClass! | TrueClass!
+    hometown: String?
+    image_rights: String?
+    image_urls: Hash!(String! => String!)
+    last: String?
+    location: String?
+    middle: String?
+    nationality: String?
+    partner_show_image_ids: Array!
+    partner_shows_count: Fixnum!
+    public: TrueClass! | FalseClass!
+    public_artworks_count: Fixnum!
+    publications: String?
+    published_artworks_count: Fixnum!
+    published_at: Time?
+    soloexhibitions: String?
+    sortable_id: String!
+    statement: String?
+    tile_base_url: null
+    trending: Float!
+    updated_at: Time!
+
+  all_json_fields:
+    _id: ObjectId!
+    alternate_names: Array?(String!)
+    artworks_count: Fixnum!
+    awards: String!
+    biography: String!
+    birthday: String?
+    blurb: String!
+    collections: String!
+    consignable: FalseClass! | TrueClass!
+    deathday: String?
+    display_auction_link: FalseClass!
+    display_name: String?
+    displayable_partner_shows_count: Fixnum!
+    education: String!
+    exclude_from_criteo: FalseClass!
+    first: String?
+    follow_count: Fixnum!
+    forsale_artworks_count: Fixnum!
+    gender: String?
+    groupexhibitions: String!
+    hide_auction_link: FalseClass! | TrueClass!
+    hometown: String?
+    id: String?
+    image_rights: String?
+    image_url: String?
+    image_urls: Hash!(String! => String!)
+    image_versions: Array!(Symbol!)
+    last: String?
+    location: String?
+    middle: String?
+    name: String!
+    nationality: String?
+    original_height: Fixnum?
+    original_width: Fixnum?
+    partner_shows_count: Fixnum!
+    public: TrueClass! | FalseClass!
+    publications: String!
+    published_artworks_count: Fixnum!
+    soloexhibitions: String!
+    sortable_id: String!
+    statement: String!
+    years: String!
+
+  public_json_fields:
+    _id: ObjectId!
+    artworks_count: Fixnum!
+    awards: String!
+    biography: String!
+    birthday: String?
+    blurb: String!
+    collections: String!
+    consignable: FalseClass! | TrueClass!
+    deathday: String?
+    displayable_partner_shows_count: Fixnum!
+    education: String!
+    follow_count: Fixnum!
+    forsale_artworks_count: Fixnum!
+    gender: String?
+    groupexhibitions: String!
+    hometown: String?
+    id: String?
+    image_url: String?
+    image_urls: Hash!(String! => String!)
+    image_versions: Array!(Symbol!)
+    location: String?
+    name: String!
+    nationality: String?
+    original_height: Fixnum?
+    original_width: Fixnum?
+    partner_shows_count: Fixnum!
+    public: TrueClass! | FalseClass!
+    publications: String!
+    published_artworks_count: Fixnum!
+    soloexhibitions: String!
+    sortable_id: String!
+    statement: String!
+    years: String!
+
+  short_json_fields:
+    _id: ObjectId!
+    artworks_count: Fixnum!
+    birthday: String?
+    consignable: FalseClass! | TrueClass!
+    deathday: String?
+    forsale_artworks_count: Fixnum!
+    id: String?
+    image_url: String?
+    image_urls: Hash!(String! => String!)
+    image_versions: Array!(Symbol!)
+    name: String!
+    nationality: String?
+    original_height: Fixnum?
+    original_width: Fixnum?
+    public: TrueClass! | FalseClass!
+    published_artworks_count: Fixnum!
+    sortable_id: String!
+    years: String!
+
+  merged:
+    _id: ObjectId!
+    _slugs: Array!(String!)
+    active_auction_lots_count: Integer! | Fixnum!
+    alternate_names: Array?(String!)
+    artist_location_ids: Array!(ObjectId!)
+    artworks_count: Integer! | Fixnum!
+    awards: String?
+    biography: String?
+    birthday: String?
+    blurb: String?
+    career_stage: Float!
+    collections: String?
+    consignable: FalseClass! | TrueClass! | Boolean!
+    created_at: Time! | Time!
+    deathday: String?
+    display_auction_link: FalseClass!
+    display_name: String?
+    displayable_partner_shows_count: Integer! | Fixnum!
+    education: String?
+    exclude_from_criteo: Boolean! | FalseClass!
+    first: String?
+    follow_count: Integer! | Fixnum!
+    forsale_artworks_count: Integer! | Fixnum!
+    gemini_token: String?
+    gemini_token_updated_at: null | Time! | Time!
+    gender: String?
+    groupexhibitions: String?
+    hide_auction_link: FalseClass! | TrueClass! | Boolean!
+    hometown: String?
+    id: String?
+    image_rights: String?
+    image_url: String?
+    image_urls: Hash!(String! => String!)
+    image_versions: Array!(Symbol!)
+    last: String?
+    location: String?
+    middle: String?
+    name: String!
+    nationality: String?
+    original_height: Fixnum?
+    original_width: Fixnum?
+    partner_show_image_ids: Array!
+    partner_shows_count: Integer! | Fixnum!
+    public: TrueClass! | FalseClass! | Boolean!
+    public_artworks_count: Integer! | Fixnum!
+    publications: String?
+    published_artworks_count: Integer! | Fixnum!
+    published_at: Time! | null | Time!
+    soloexhibitions: String?
+    sortable_id: String!
+    statement: String?
+    tile_base_url: String?
+    trending: Float!
+    updated_at: Time! | Time!
+    years: String!
+

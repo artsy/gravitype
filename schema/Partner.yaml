@@ -60,7 +60,6 @@ Partner:
     sortable_id: String!
     sortable_name: String!
     subscription_state: String!
-    subscription_version_upgraded: Boolean!
     updated_at: Time!
     website: String!
 
@@ -125,7 +124,6 @@ Partner:
     sortable_id: String!
     sortable_name: String?
     subscription_state: String?
-    subscription_version_upgraded: FalseClass! | TrueClass!
     updated_at: Time!
     website: String!
 
@@ -189,7 +187,6 @@ Partner:
     sortable_name: String?
     subscription_plans_names: Array!
     subscription_state: String?
-    subscription_version_upgraded: FalseClass! | TrueClass!
     type: String!
     website: String!
 
@@ -330,7 +327,6 @@ Partner:
     sortable_name: String?
     subscription_plans_names: Array!
     subscription_state: String?
-    subscription_version_upgraded: FalseClass! | TrueClass! | Boolean!
     type: String!
     updated_at: Time! | Time!
     website: String!

@@ -47,7 +47,7 @@ GEM
       mongoid (>= 3.0)
     parallel (1.10.0)
     path_expander (1.0.1)
-    rake (10.5.0)
+    rake (13.0.1)
     ruby-debug-ide (0.6.0)
       rake (>= 0.8.1)
     ruby-progressbar (1.8.1)
@@ -68,7 +68,7 @@ DEPENDENCIES
   minitest-focus
   minitest-reporters
   minitest-sprint
-  rake (~> 10.0)
+  rake (~> 13.0)
   ruby-debug-ide
 
 BUNDLED WITH
